@@ -10,7 +10,7 @@ const SiteNavbar: FunctionComponent = props => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Navbar expand="lg" className="mb-4">
+    <Navbar expand="lg" light className="light mb-4">
     <Container>
       <NavLink to="/" tag={ RNavLink } className="navbar-brand d-fles align-items-center text-dark">
         <img className="mr-2 img-fluid rounded" style={{height: 30}} src={logo} alt="logo" />

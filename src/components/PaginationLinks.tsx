@@ -3,7 +3,6 @@ import qs from 'qs';
 import { Link } from 'react-router-dom';
 
 const PaginationLinks = (props: any) => {
-  console.log({props})
   const { location, params, meta } = props;
   const current = parseInt(params.page, 10) ?? 1;
   const firstParam = JSON.parse(JSON.stringify(params));

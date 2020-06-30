@@ -1,17 +1,15 @@
 import React from 'react';
 import { Card, CardBody, CardFooter, Button } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 const NodeCard = (props: any) => {
   const { node, isIndex, author } = props;
-  console.log({node, author})
+
   return (
     <Card className='mb-5 no-hover'>
       <CardBody>
+
         <h4 className="card-title">
-          <Link to={node.attributes.path }>
-            {node.attributes.title}
-          </Link>
+          { node.attributes.title }
         </h4>
 
         <h6 className="card-subtitle">
@@ -30,7 +28,7 @@ const NodeCard = (props: any) => {
       </CardBody>
       { isIndex ?
         <CardFooter style={{ justifyContent: 'end', display: 'flex' }}>
-          <Button size='sm' color='success' href={node.attributes.path } >read more</Button>
+          <Button size='small' color='light' href={node.attributes.path } >read more</Button>
         </CardFooter>
         : null
       }

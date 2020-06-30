@@ -5,6 +5,7 @@ import NodeCard from "../../components/NodeCard";
 import { Container } from "reactstrap";
 import PaginationLinks from "../../components/PaginationLinks";
 import qs from 'qs';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NodesByType: FunctionComponent = props => {
   const { type }= useParams();
@@ -14,6 +15,7 @@ const NodesByType: FunctionComponent = props => {
   const { Nodes, Types } = useApi();
   const [ nodes, setNodes ] = useState({} as any);
   const [ types, setTypes ] = useState({} as any);
+  const [ loading, setLoading ] = useState(false);
 
   const params = {
     page,
@@ -24,7 +26,8 @@ const NodesByType: FunctionComponent = props => {
   }
 
   useEffect(useCallback(() => {
-    Nodes
+    setLoading(true);
+    const p1 = Nodes
       .index({
         params,
       })
@@ -33,7 +36,7 @@ const NodesByType: FunctionComponent = props => {
         setNodes(data)
       });
 
-    Types
+    const p2 = Types
       .index({
         params: {
           alias: type,
@@ -42,20 +45,29 @@ const NodesByType: FunctionComponent = props => {
       .then(res => res.data)
       .then(data => {
         setTypes(data)
-      })
+      });
 
-  }, [Nodes, Types, type, params, setNodes, setTypes]), [ location ]);
+    Promise.all([p1, p2])
+      .finally(() => setLoading(false));
+
+  }, [Nodes, Types, type, params, setNodes, setTypes, setLoading]), [ location ]);
 
   return (
     <Container>
       { types && types.data
-        ? <h1>{ types.data[0].attributes.title }</h1>
+        ? <h1>{ types.data[0].attributes.title }
+            { loading ? <>&nbsp;<FontAwesomeIcon size='sm' icon='spinner' className='fa-spin' /></> : null }
+          </h1>
         : null
       }
       { nodes && nodes.data && nodes.data.map((node: any) => {
         return <NodeCard node={ node } isIndex/>
       })}
-      <PaginationLinks location={ location } params={ params } meta={ nodes.meta }/>
+
+      { nodes && nodes.data && nodes.data.length > 0
+        ? <PaginationLinks location={ location } params={ params } meta={ nodes.meta }/>
+        : loading ? null : <>No { type } entry found </>
+      }
     </Container>
   )
 }

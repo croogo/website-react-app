@@ -3,13 +3,16 @@ import { useParams } from "react-router-dom";
 import { useApi } from "../../context/api";
 import NodeCard from "../../components/NodeCard";
 import { Container } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NodesBySlug: FunctionComponent = props => {
   const { type, slug } = useParams();
   const { Nodes } = useApi();
   const [ nodes, setNodes ] = useState({} as any);
+  const [ loading, setLoading ] = useState(false);
 
   useEffect(useCallback(() => {
+    setLoading(true);
     Nodes
       .index({
         params: {
@@ -23,8 +26,9 @@ const NodesBySlug: FunctionComponent = props => {
       .then(res => res.data)
       .then(data => {
         document.title = data.data[0].attributes.title;
-        setNodes(data)
-      });
+        setNodes(data);
+      })
+      .finally(() => setLoading(false));
 
   }, [Nodes, type, slug, setNodes]), []);
 
@@ -35,8 +39,10 @@ const NodesBySlug: FunctionComponent = props => {
 
   return (
     <Container>
+      { loading ? <div><FontAwesomeIcon size='3x' icon='spinner' className='fa-spin' /></div> : null }
+
       { nodes && nodes.data && nodes.data.map((node: any) => {
-        return <NodeCard node={ node } author={ author } />
+        return <NodeCard node={ node } author={ author } loading={ loading }/>
       })}
     </Container>
   )
