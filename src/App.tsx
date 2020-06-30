@@ -3,10 +3,13 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { routes } from "./routes";
 import DefaultLayout from './layouts/DefaultLayout';
 import NotFound from './components/NotFound';
+import config from './config';
+import Analytics from 'react-router-ga';
 
 function App() {
   return (
     <Router>
+      <Analytics id={ config.ga.propertyId }>
       <Switch>
         <Route exact path='/support'>
           <Redirect to='/page/support' />
@@ -34,6 +37,7 @@ function App() {
           </DefaultLayout>
         </Route>
       </Switch>
+      </Analytics>
     </Router>
   );
 }

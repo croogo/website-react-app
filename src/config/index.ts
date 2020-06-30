@@ -1,4 +1,7 @@
 export default {
+  ga: {
+    propertyId: '',
+  },
   api: {
     baseUrl: "http://croogo-website.test/api/v1.0",
     jwksUrl: "http://croogo-website.test/.well-known/jwks.json",
