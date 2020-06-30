@@ -35,7 +35,7 @@ const Footer = (props: any) => {
           <span className="text-danger">
             {" "}<FontAwesomeIcon icon="heart" />{" "}
           </span>
-          by Croogo Development Team
+          by Croogo Development Team (based on <a rel='noopener noreferrer' target='_blank' href='https://bootstrapbay.com/theme/lazy-free-react-ui-kit-BD90DEB'>Lazy Kit UI Kit</a>)
         </p>
       </div>
       </Container>
