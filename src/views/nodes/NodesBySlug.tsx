@@ -26,7 +26,7 @@ const NodesBySlug: FunctionComponent = props => {
         setNodes(data)
       });
 
-  }, [Nodes, type, setNodes]), []);
+  }, [Nodes, type, slug, setNodes]), []);
 
   let author = {};
   if (nodes && nodes.included) {
