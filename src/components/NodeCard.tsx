@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardBody, CardFooter, Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const NodeCard = (props: any) => {
   const { node, isIndex, author } = props;
@@ -28,7 +29,7 @@ const NodeCard = (props: any) => {
       </CardBody>
       { isIndex ?
         <CardFooter style={{ justifyContent: 'end', display: 'flex' }}>
-          <Button size='small' color='light' href={node.attributes.path } >read more</Button>
+          <Link className='btn btn-small btn-light' to={node.attributes.path } >read more</Link>
         </CardFooter>
         : null
       }
