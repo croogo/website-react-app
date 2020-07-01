@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const PaginationLinks = (props: any) => {
   const { location, params, meta } = props;
-  const current = parseInt(params.page, 10) ?? 1;
+  const current = params.page ? parseInt(params.page, 10) : 1;
   const firstParam = JSON.parse(JSON.stringify(params));
   delete firstParam.type;
   firstParam.page = 1;
