@@ -1,4 +1,7 @@
 export default {
+  site: {
+    title: 'Croogo - The CakePHP powered Content Management System'
+  },
   ga: {
     propertyId: '',
   },

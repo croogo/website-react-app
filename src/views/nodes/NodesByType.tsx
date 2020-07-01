@@ -6,6 +6,7 @@ import { Container } from "reactstrap";
 import PaginationLinks from "../../components/PaginationLinks";
 import qs from 'qs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import config from '../../config';
 
 const NodesByType: FunctionComponent = props => {
   const { type }= useParams();
@@ -44,6 +45,9 @@ const NodesByType: FunctionComponent = props => {
       })
       .then(res => res.data)
       .then(data => {
+        if (data.data[0]) {
+          document.title = config.site.title + ' | ' + data.data[0].attributes.title;
+        }
         setTypes(data)
       });
 

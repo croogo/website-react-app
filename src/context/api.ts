@@ -34,11 +34,16 @@ export function useApi() {
       },
     },
 
+    Terms: {
+      index: function(config ?: AxiosRequestConfig | undefined) {
+        return axios.get('/terms', config)
+      },
+    },
+
     Blocks: {
       index: function(config ?: AxiosRequestConfig | undefined) {
         return axios.get('/blocks', config)
       },
-
     }
 
   }

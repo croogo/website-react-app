@@ -9,7 +9,7 @@ const NodeCard = (props: any) => {
     <Card className='mb-5 no-hover'>
       <CardBody>
 
-        <h4 className={ isIndex ? '' : 'display-4 ' + 'card-title' }>
+        <h4 className={ (isIndex ? '' : 'display-4 ') + 'card-title' }>
           { node.attributes.title }
         </h4>
 

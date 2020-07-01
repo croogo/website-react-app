@@ -6,15 +6,16 @@ import { Container } from "reactstrap";
 import PaginationLinks from "../../components/PaginationLinks";
 import qs from 'qs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import config from '../../config';
 
 const NodesByTerm: FunctionComponent = props => {
   const { type, term }= useParams();
   const location = useLocation()
   const queryString = qs.parse(location.search.slice(1))
   const { page } = queryString;
-  const { Nodes, Types } = useApi();
+  const { Nodes, Terms } = useApi();
   const [ nodes, setNodes ] = useState({} as any);
-  const [ types, setTypes ] = useState({} as any);
+  const [ terms, setTerms ] = useState({} as any);
   const [ loading, setLoading ] = useState(false);
 
   const params = {
@@ -37,26 +38,29 @@ const NodesByTerm: FunctionComponent = props => {
         setNodes(data)
       });
 
-    const p2 = Types
+    const p2 = Terms
       .index({
         params: {
-          alias: type,
+          slug: term,
         },
       })
       .then(res => res.data)
       .then(data => {
-        setTypes(data)
+        if (data.data[0]) {
+          document.title = config.site.title + ' | ' + data.data[0].attributes.title;
+        }
+        setTerms(data)
       });
 
     Promise.all([p1, p2])
       .finally(() => setLoading(false));
 
-  }, [Nodes, Types, type, params, setNodes, setTypes]), [ location ]);
+  }, [Nodes, Terms, term, params, setNodes, setTerms]), [ location ]);
 
   return (
     <Container>
-      { types && types.data
-        ? <h1>{ types.data[0].attributes.title }
+      { terms && terms.data
+        ? <h1>{ terms.data[0].attributes.title }
 
           </h1>
         : null
