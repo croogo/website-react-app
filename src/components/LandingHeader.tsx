@@ -6,8 +6,16 @@ import {
   Row,
 } from 'reactstrap';
 import admin from '../assets/img/admin.png';
+import plugin from '../assets/img/plugin.png';
+import Slideshow from './Slideshow';
 
 const LandingHeader = () => {
+
+  const slideImages = [
+    admin,
+    plugin,
+  ];
+
   return (
     <div className="header bg-white">
     	<Container>
@@ -20,9 +28,7 @@ const LandingHeader = () => {
     		    </Form>
     			</Col>
     			<Col xs="12" md="7">
-    				<div className="devices pl-md-4 pt-5 pt-md-0">
-    					<img src={admin} alt="Croogo Admin" className="img-fluid" />
-    				</div>
+            <Slideshow images={ slideImages } />
     			</Col>
     		</Row>
     	</Container>

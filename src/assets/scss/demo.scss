@@ -1,5 +1,6 @@
 @import 'custom/variables';
 @import 'custom/mixins';
+@import '~react-slideshow-image/dist/styles.css';
 
 .space {
 	margin-top: 5rem;
@@ -409,4 +410,8 @@ footer {
 
 .block {
     margin-bottom: 40px;
+}
+
+.each-slide div {
+    min-height: 400px;
 }
