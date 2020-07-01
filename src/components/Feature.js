@@ -7,7 +7,7 @@ class Feature extends React.Component {
     return (
       <div className="feature text-center">
         { imgPath
-            ? <img alt='' src={ imgPath } class='img-fluid mb-5' style={{ maxHeight: '150px' }}/>
+            ? <img alt='' src={ imgPath } class='img-fluid mb-5' style={{ maxHeight: '120px' }}/>
             : null
         }
         <h5 className={`text-${this.props.color}`}>{this.props.title}</h5>

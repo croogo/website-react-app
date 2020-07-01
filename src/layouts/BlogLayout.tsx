@@ -15,7 +15,7 @@ const BlogLayout: FunctionComponent = (props) => {
           {props.children}
         </Col>
         <Col md={ 4 }>
-            <Region name='right'/>
+          <Region name='right' />
         </Col>
       </Row>
       </Container>

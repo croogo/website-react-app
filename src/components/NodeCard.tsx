@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardBody, CardFooter, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Card, CardBody, CardFooter } from 'reactstrap';
 
 const NodeCard = (props: any) => {
   const { node, isIndex, author } = props;
@@ -9,11 +9,11 @@ const NodeCard = (props: any) => {
     <Card className='mb-5 no-hover'>
       <CardBody>
 
-        <h4 className="card-title">
+        <h4 className={ isIndex ? '' : 'display-4 ' + 'card-title' }>
           { node.attributes.title }
         </h4>
 
-        <h6 className="card-subtitle">
+        <h6 className="card-subtitle text-muted">
           { author
             ? <><small>By: </small>{ author.attributes.name } </>
             : null
@@ -23,12 +23,12 @@ const NodeCard = (props: any) => {
 
         {
           isIndex
-            ? <div className="card-text" dangerouslySetInnerHTML={{ __html: node.attributes.excerpt }} />
-            : <div className="card-text" dangerouslySetInnerHTML={{ __html: node.attributes.body }} />
+            ? <div className="card-text my-4" dangerouslySetInnerHTML={{ __html: node.attributes.excerpt }} />
+            : <div className="card-text my-4" dangerouslySetInnerHTML={{ __html: node.attributes.body }} />
         }
       </CardBody>
       { isIndex ?
-        <CardFooter style={{ justifyContent: 'end', display: 'flex' }}>
+        <CardFooter className='text-right'>
           <Link className='btn btn-small btn-light' to={node.attributes.path } >read more</Link>
         </CardFooter>
         : null

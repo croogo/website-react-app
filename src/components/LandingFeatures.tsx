@@ -29,13 +29,13 @@ const LandingFeatures = () => {
       color: "primary",
       title: "CakePHP",
       imgPath: cakephp,
-      text: 'Powered by the very popular CakePHP framework.',
+      text: 'Powered by the very popular framework.',
     },
     {
       color: "primary",
       imgPath: bootstrap,
       title: "Works with Bootstrap",
-      text: "Built with Twitter Bootstrap for responsive administrative UI.",
+      text: "Built with Bootstrap for responsive admini UI.",
     },  ]
 
   let features = fProps.map((feature, index) => {
@@ -48,16 +48,16 @@ const LandingFeatures = () => {
 
   return (
     <div className="features">
-    	<Container>
+      <Container>
 
-            <h1>
-                Built on proven technologies
-            </h1>
+        <h1 className='text-center'>
+            Built on proven technologies
+        </h1>
 
-    		<Row>
-                {features}
-    		</Row>
-    	</Container>
+        <Row>
+            {features}
+        </Row>
+      </Container>
     </div>
   );
 };
