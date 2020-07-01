@@ -390,3 +390,19 @@
 		// }
 	}
 }
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 200px;
+}
+
+footer {
+    position: absolute;
+    height: 200px;
+    bottom: 0;
+    width: 100%;
+}
