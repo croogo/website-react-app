@@ -12,6 +12,7 @@ export function useApi() {
     baseURL: config.api.baseUrl,
     headers: {
       'Accept': 'application/vnd.api+json',
+      'X-ApiToken': config.api.token,
     },
   };
 
