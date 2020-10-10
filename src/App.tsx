@@ -14,7 +14,7 @@ function App() {
         <Route exact path='/support'>
           <Redirect to='/page/support' />
         </Route>
-        {routes.map((route, index) => {
+        { routes.map((route, index) => {
           return (
             <Route
               key={index}

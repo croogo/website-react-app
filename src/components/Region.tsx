@@ -28,7 +28,7 @@ const Region: FunctionComponent<RegionProps> = props => {
     <div className='mt-5'>
       { json.data && json.data.map((block: any) => {
         return (
-          <div dangerouslySetInnerHTML={{ __html: block.attributes.rendered ?? block.attributes.body }} />
+          <div key={ `block-${block.id}` } dangerouslySetInnerHTML={{ __html: block.attributes.rendered ?? block.attributes.body }} />
         );
       }) }
     </div>

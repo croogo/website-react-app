@@ -42,7 +42,7 @@ const NodesBySlug: FunctionComponent = props => {
       { loading ? <div><FontAwesomeIcon size='3x' icon='spinner' className='fa-spin' /></div> : null }
 
       { nodes && nodes.data && nodes.data.map((node: any) => {
-        return <NodeCard node={ node } author={ author } loading={ loading }/>
+        return <NodeCard key={ `nodecard-${node.id}` } node={ node } author={ author } loading={ loading }/>
       })}
     </Container>
   )

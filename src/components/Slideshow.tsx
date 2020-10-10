@@ -13,13 +13,17 @@ const properties = {
   }
 }
 
-const Slideshow = (props: any) => {
+declare interface SlideshowProps{
+  images: string[],
+}
+
+const Slideshow = (props: SlideshowProps) => {
   const { images } = props;
   return (
     <div className="slide-container">
       <Slide {...properties}>
-        {images.map((imageUrl: string) => (
-          <div className="each-slide">
+        {images.map((imageUrl: string, index: number) => (
+          <div key={ `slide-${index}` } className="each-slide">
             <div style={{ backgroundSize: 'cover', backgroundImage: `url(${imageUrl})` }}>
             </div>
           </div>

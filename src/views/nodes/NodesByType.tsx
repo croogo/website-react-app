@@ -65,7 +65,7 @@ const NodesByType: FunctionComponent = props => {
         : null
       }
       { nodes && nodes.data && nodes.data.map((node: any) => {
-        return <NodeCard node={ node } isIndex/>
+        return <NodeCard key={`nodecard-${node.id}`} node={ node } isIndex/>
       })}
 
       { nodes && nodes.data && nodes.data.length > 0
