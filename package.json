@@ -16,8 +16,8 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.5",
     "@types/reactstrap": "^8.4.3",
-    "axios": "^0.19.2",
-    "bootstrap": "^4.5.0",
+    "axios": "^0.20.0",
+    "bootstrap": "^4.5.2",
     "html-react-parser": "^0.14.0",
     "node-sass": "^4.14.1",
     "qs": "^6.9.4",
@@ -26,8 +26,8 @@
     "react-router-dom": "^5.2.0",
     "react-router-ga": "^1.2.3",
     "react-scripts": "3.4.1",
-    "react-slideshow-image": "^2.0.1",
-    "reactstrap": "^8.5.1",
+    "react-slideshow-image": "^3.3.0",
+    "reactstrap": "^8.6.0",
     "typescript": "~3.7.2"
   },
   "devDependencies": {
