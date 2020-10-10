@@ -1,10 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { routes } from "./routes";
-import DefaultLayout from './layouts/DefaultLayout';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import Analytics from 'react-router-ga';
 import NotFound from './components/NotFound';
 import config from './config';
-import Analytics from 'react-router-ga';
+import DefaultLayout from './layouts/DefaultLayout';
+import { routes } from "./routes";
 
 function App() {
   return (
