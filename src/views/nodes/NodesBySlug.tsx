@@ -4,9 +4,10 @@ import { useApi } from "../../context/api";
 import NodeCard from "../../components/NodeCard";
 import { Container } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { NodesSearchParams } from "../../types/entities";
 
 const NodesBySlug: FunctionComponent = props => {
-  const { type, slug } = useParams();
+  const { type, slug } = useParams<NodesSearchParams>();
   const { Nodes } = useApi();
   const [ nodes, setNodes ] = useState({} as any);
   const [ loading, setLoading ] = useState(false);

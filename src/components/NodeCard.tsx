@@ -2,7 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardBody, CardFooter } from 'reactstrap';
 
-const NodeCard = (props: any) => {
+declare interface NodeCardProps {
+  author?: any,
+  node: any;
+  isIndex?: boolean;
+  loading?: boolean;
+}
+
+const NodeCard = (props: NodeCardProps) => {
   const { node, isIndex, author } = props;
 
   return (

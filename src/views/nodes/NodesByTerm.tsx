@@ -7,9 +7,10 @@ import PaginationLinks from "../../components/PaginationLinks";
 import qs from 'qs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import config from '../../config';
+import { NodesSearchParams } from "../../types/entities";
 
 const NodesByTerm: FunctionComponent = props => {
-  const { type, term }= useParams();
+  const { type, term } = useParams<NodesSearchParams>();
   const location = useLocation()
   const queryString = qs.parse(location.search.slice(1))
   const { page } = queryString;

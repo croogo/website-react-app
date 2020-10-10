@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useApi } from '../context/api';
 import { useLocation } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ declare interface RegionProps {
   name: string,
 }
 
-const Region: FunctionComponent<RegionProps> = props => {
+const Region = (props: RegionProps) => {
   const { name } = props;
   const { Blocks } = useApi();
   const [ json, setJson ] = useState([] as any);
