@@ -31,7 +31,7 @@ const NodesBySlug: FunctionComponent = props => {
       })
       .finally(() => setLoading(false));
 
-  }, [Nodes, type, slug, setNodes]), []);
+  }, [Nodes, type, slug, setNodes]), [type, slug]);
 
   let author = {};
   if (nodes && nodes.included) {
