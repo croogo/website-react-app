@@ -25,7 +25,7 @@ const NodeCard = (props: NodeCardProps) => {
             ? <><small>By: </small>{ author.attributes.name } </>
             : null
           }
-          <small>{ new Date(node.attributes['publish-start']).toDateString() }</small>
+          <small>{ new Date(node.attributes['publishStart']).toDateString() }</small>
         </h6>
 
         {
