@@ -1,8 +1,10 @@
-import React from 'react';import { Pagination, PaginationLink, PaginationItem } from 'reactstrap';
 import qs from 'qs';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { ApiMeta } from '../types/entities';
 
-const PaginationLinks = (props: any) => {
+const PaginationLinks = (props: ApiMeta) => {
   const { location, params, meta } = props;
   const current = params.page ? parseInt(params.page, 10) : 1;
   const firstParam = JSON.parse(JSON.stringify(params));

@@ -1,15 +1,21 @@
-import React, { FunctionComponent, useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
-import { useApi } from "../../context/api";
-import NodeCard from "../../components/NodeCard";
-import { Container } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { NodesSearchParams } from "../../types/entities";
+import Jsona, { SwitchCaseJsonMapper, SwitchCaseModelMapper } from 'jsona';
+import React, { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Container } from "reactstrap";
+import NodeCard from "../../components/NodeCard";
+import { useApi } from "../../context/api";
+import { NodesSearchParams, Post } from "../../types/entities";
 
-const NodesBySlug: FunctionComponent = props => {
+const dataFormatter = new Jsona({
+  modelPropertiesMapper: new SwitchCaseModelMapper(),
+  jsonPropertiesMapper: new SwitchCaseJsonMapper(),
+})
+
+const NodesBySlug = () => {
   const { type, slug } = useParams<NodesSearchParams>();
   const { Nodes } = useApi();
-  const [ nodes, setNodes ] = useState({} as any);
+  const [ nodes, setNodes ] = useState([] as Post[]);
   const [ loading, setLoading ] = useState(false);
 
   useEffect(useCallback(() => {
@@ -25,25 +31,21 @@ const NodesBySlug: FunctionComponent = props => {
         },
       })
       .then(res => res.data)
-      .then(data => {
-        document.title = data.data[0].attributes.title;
-        setNodes(data);
+      .then(json => {
+        const nodes = dataFormatter.deserialize(json) as Post[];
+        document.title = nodes[0].title;
+        setNodes(nodes);
       })
       .finally(() => setLoading(false));
 
   }, [Nodes, type, slug, setNodes]), [type, slug]);
 
-  let author = {};
-  if (nodes && nodes.included) {
-    author = nodes && nodes.included.find((x: any) => x.type === 'users');
-  }
-
   return (
     <Container>
       { loading ? <div><FontAwesomeIcon size='3x' icon='spinner' className='fa-spin' /></div> : null }
 
-      { nodes && nodes.data && nodes.data.map((node: any) => {
-        return <NodeCard key={ `nodecard-${node.id}` } node={ node } author={ author } loading={ loading }/>
+      { nodes && nodes.map((node) => {
+        return <NodeCard key={ `nodecard-${node.id}` } node={ node } author={ node.user } loading={ loading }/>
       })}
     </Container>
   )

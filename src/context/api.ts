@@ -1,6 +1,7 @@
 import Axios, { AxiosRequestConfig } from 'axios';
 import { createContext } from 'react';
 import config from '../config';
+import { ApiIndex } from '../types/entities';
 
 export const ApiContext = createContext({token: '', setToken: (data: string) : void => {}});
 
@@ -25,7 +26,7 @@ export function useApi() {
   return {
     Nodes: {
       index: function(config ?: AxiosRequestConfig | undefined) {
-        return axios.get('/nodes', config)
+        return axios.get<ApiIndex>('/nodes', config)
       },
     },
 

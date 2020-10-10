@@ -1,13 +1,19 @@
-import React, { FunctionComponent, useEffect, useState, useCallback } from "react";
-import { useParams, useLocation } from "react-router-dom";
-import { useApi } from "../../context/api";
-import NodeCard from "../../components/NodeCard";
-import { Container } from "reactstrap";
-import PaginationLinks from "../../components/PaginationLinks";
-import qs from 'qs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Jsona, { SwitchCaseJsonMapper, SwitchCaseModelMapper } from 'jsona';
+import qs from 'qs';
+import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import { Container } from "reactstrap";
+import NodeCard from "../../components/NodeCard";
+import PaginationLinks from "../../components/PaginationLinks";
 import config from '../../config';
-import { NodesSearchParams } from '../../types/entities';
+import { useApi } from "../../context/api";
+import { ApiMeta, NodesSearchParams, Post } from '../../types/entities';
+
+const dataFormatter = new Jsona({
+  modelPropertiesMapper: new SwitchCaseModelMapper(),
+  jsonPropertiesMapper: new SwitchCaseJsonMapper(),
+})
 
 const NodesByType: FunctionComponent = props => {
   const { type }= useParams<NodesSearchParams>();
@@ -15,7 +21,8 @@ const NodesByType: FunctionComponent = props => {
   const queryString = qs.parse(location.search.slice(1))
   const { page } = queryString;
   const { Nodes, Types } = useApi();
-  const [ nodes, setNodes ] = useState({} as any);
+  const [ nodes, setNodes ] = useState([] as Post[]);
+  const [ nodesMeta, setNodesMeta ] = useState({} as ApiMeta);
   const [ types, setTypes ] = useState({} as any);
   const [ loading, setLoading ] = useState(false);
 
@@ -34,8 +41,10 @@ const NodesByType: FunctionComponent = props => {
         params,
       })
       .then(res => res.data)
-      .then(data => {
-        setNodes(data)
+      .then(json => {
+        const nodes = dataFormatter.deserialize(json) as Post[];
+        setNodesMeta(json.meta);
+        setNodes(nodes);
       });
 
     const p2 = Types
@@ -65,12 +74,12 @@ const NodesByType: FunctionComponent = props => {
           </h1>
         : null
       }
-      { nodes && nodes.data && nodes.data.map((node: any) => {
+      { nodes && nodes.map(node => {
         return <NodeCard key={`nodecard-${node.id}`} node={ node } isIndex/>
       })}
 
-      { nodes && nodes.data && nodes.data.length > 0
-        ? <PaginationLinks location={ location } params={ params } meta={ nodes.meta }/>
+      { nodes && nodes.length > 0
+        ? <PaginationLinks location={ location } params={ params } meta={ nodesMeta }/>
         : loading ? null : <>No { type } entry found </>
       }
     </Container>
