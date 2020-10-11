@@ -30,6 +30,12 @@ export function useApi() {
   const axios = Axios.create(axiosConfig);
 
   return {
+    Links: {
+      index: function(config ?: AxiosRequestConfig | undefined) {
+        return axios.get<ApiIndex>('/links', config)
+      },
+    },
+
     Nodes: {
       index: function(config ?: AxiosRequestConfig | undefined) {
         return axios.get<ApiIndex>('/nodes', config)

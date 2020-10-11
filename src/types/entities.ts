@@ -25,6 +25,16 @@ export interface Block extends TJsonaModel {
   rendered: string;
 }
 
+export interface MenuItem {
+  id: number;
+  title: string;
+  description: string;
+  path: string;
+  class: string;
+  target: string;
+  rel: string;
+}
+
 export interface Term extends TJsonaModel {
   id: number;
   title: string;

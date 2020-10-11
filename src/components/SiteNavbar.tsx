@@ -1,13 +1,36 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { FunctionComponent, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { NavLink as RNavLink } from 'react-router-dom';
 import { Button, Collapse, Container, Nav, Navbar, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import logo from '../assets/img/logo_croogo.png';
-import { NavLink as RNavLink } from 'react-router-dom';
+import config from '../config';
+import { dataFormatter, useApi } from '../context/api';
+import { MenuItem } from '../types/entities';
 
-const SiteNavbar: FunctionComponent = props => {
-  const [isOpen, setIsOpen] = useState(false);
+declare interface SiteNavbarProps {
+  menuAlias: string;
+}
+
+const SiteNavbar = (props: SiteNavbarProps) => {
+  const { Links } = useApi();
+  const [ isOpen, setIsOpen ] = useState(false);
+  const [ links, setLinks ] = useState([] as MenuItem[]);
 
   const toggle = () => setIsOpen(!isOpen);
+
+  useEffect(useCallback(() => {
+    Links
+      .index({
+        params: {
+          menuAlias: props.menuAlias,
+        },
+      })
+      .then(res => res.data)
+      .then(json => {
+        const links = dataFormatter.deserialize(json) as any[];
+        setLinks(links);
+      });
+  }, [Links, props.menuAlias]), []);
 
   return (
     <Navbar expand="lg" light className="light mb-4">
@@ -19,36 +42,18 @@ const SiteNavbar: FunctionComponent = props => {
       <NavbarToggler onClick={ toggle } />
       <Collapse isOpen={ isOpen } navbar>
         <Nav className="ml-lg-auto" navbar>
-          <NavItem className='mx-2'>
-            <NavLink href='//docs.croogo.org/'>
-              Documentation
-            </NavLink>
-          </NavItem>
-          <NavItem className='mx-2'>
-            <NavLink to='/blog' tag={ RNavLink }>
-              Blog
-            </NavLink>
-          </NavItem>
-          <NavItem className='mx-2'>
-            <NavLink to='/support' tag={ RNavLink }>
-              Support
-            </NavLink>
-          </NavItem>
-          <NavItem className='mx-2'>
-            <NavLink href='//github.com/croogo/croogo'>
-              Source
-            </NavLink>
-          </NavItem>
-          <NavItem className='mx-2'>
-            <NavLink href='//github.com/croogo/croogo/issues'>
-              Issues
-            </NavLink>
-          </NavItem>
-          <NavItem className='mx-2'>
-            <NavLink href='https://groups.google.com/forum/?fromgroups#!forum/croogo'>
-              Discuss
-            </NavLink>
-          </NavItem>
+
+          {
+            links && links.map(link => (
+            <NavItem className='mx-2'>
+            { link.path.startsWith('http')
+                ? <NavLink href={ link.path } className={ link.class } target={ link.target } rel={ link.rel }>{ link.title }</NavLink>
+                : <NavLink to={ link.path } tag={ RNavLink }>{ link.title }</NavLink>
+            }
+            </NavItem>
+            ))
+          }
+
           <NavItem className='mx-2'>
             <Button color='primary' href='https://downloads.croogo.org'>
               <FontAwesomeIcon icon="download" /> {" "}

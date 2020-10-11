@@ -14,7 +14,7 @@ const BlogLayout: FunctionComponent = (props) => {
 
   return (
     <>
-      <SiteNavbar />
+      <SiteNavbar menuAlias='main'/>
       <Container>
 
       <Row>

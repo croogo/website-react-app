@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import Footer from "./../components/Footer";
 import SiteNavbar from '../components/SiteNavbar';
+import Footer from "./../components/Footer";
 
 const DefaultLayout: FunctionComponent = (props) => {
   return (
     <>
-      <SiteNavbar />
+      <SiteNavbar menuAlias='main'/>
       {props.children}
       <Footer />
     </>

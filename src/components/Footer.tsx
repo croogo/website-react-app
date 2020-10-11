@@ -1,20 +1,40 @@
-import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Button,
   Container
 } from "reactstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { dataFormatter, useApi } from '../context/api';
+import { MenuItem } from '../types/entities';
 
-const Footer = (props: any) => {
+const Footer = () => {
+  const { Links } = useApi();
   const year = (new Date()).getFullYear();
+  const [ links, setLinks ] = useState([] as MenuItem[]);
+
+  useEffect(useCallback(() => {
+    Links
+      .index({
+        params: {
+          menuAlias: 'footer',
+        },
+      })
+      .then(res => res.data)
+      .then(json => {
+        const links = dataFormatter.deserialize(json) as MenuItem[];
+        setLinks(links);
+      });
+  }, [Links]), []);
+
   return (
     <footer className="footer-1 bg-light text-dark">
       <Container>
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
       	<div className="links">
       		<ul className="footer-menu list-unstyled d-flex flex-row text-center text-md-left">
-      			<li><a href="https://github.com/croogo?tab=members" target="_blank" rel="noopener noreferrer">Team</a></li>
-      			<li><a href="https://github.com/croogo/croogo/blob/master/LICENSE.txt" target="_blank" rel="noopener noreferrer">License</a></li>
+            { links && links.map(link => (
+              <li><a href={ link.path } target={ link.target } rel={ link.rel }>{ link.title }</a></li>
+            ))}
       		</ul>
       	</div>
       	<div className="social mt-4 mt-md-0">
