@@ -14,7 +14,7 @@ const SiteNavbar: FunctionComponent = props => {
     <Container>
       <NavLink to="/" tag={ RNavLink } className="navbar-brand d-fles align-items-center text-dark">
         <img className="mr-2 img-fluid rounded" style={{height: 30}} src={logo} alt="logo" />
-        Croogo
+        { config.site.name }
       </NavLink>
       <NavbarToggler onClick={ toggle } />
       <Collapse isOpen={ isOpen } navbar>

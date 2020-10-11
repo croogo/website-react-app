@@ -20,7 +20,8 @@ const local = {
 
 export default {
   site: {
-    title: 'Croogo - The CakePHP powered Content Management System'
+    name: 'Croogo',
+    title: 'Croogo - The CakePHP powered Content Management System',
   },
   ga: {
     propertyId: '',
