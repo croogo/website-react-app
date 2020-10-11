@@ -8,7 +8,7 @@ import NodeCard from "../../components/NodeCard";
 import PaginationLinks from "../../components/PaginationLinks";
 import config from '../../config';
 import { useApi } from "../../context/api";
-import { ApiMeta, NodesSearchParams, Post } from '../../types/entities';
+import { ApiMeta, NodesSearchParams, Post, Type } from '../../types/entities';
 
 const dataFormatter = new Jsona({
   modelPropertiesMapper: new SwitchCaseModelMapper(),
@@ -23,7 +23,7 @@ const NodesByType: FunctionComponent = props => {
   const { Nodes, Types } = useApi();
   const [ nodes, setNodes ] = useState([] as Post[]);
   const [ nodesMeta, setNodesMeta ] = useState({} as ApiMeta);
-  const [ types, setTypes ] = useState({} as any);
+  const [ types, setTypes ] = useState([] as Type[]);
   const [ loading, setLoading ] = useState(false);
 
   const params = {
@@ -54,11 +54,12 @@ const NodesByType: FunctionComponent = props => {
         },
       })
       .then(res => res.data)
-      .then(data => {
-        if (data.data[0]) {
-          document.title = config.site.title + ' | ' + data.data[0].attributes.title;
+      .then(json => {
+        const types = dataFormatter.deserialize(json) as Type[];
+        if (types[0]) {
+          document.title = config.site.title + ' | ' + types[0].title;
         }
-        setTypes(data)
+        setTypes(types)
       });
 
     Promise.all([p1, p2])
@@ -68,8 +69,8 @@ const NodesByType: FunctionComponent = props => {
 
   return (
     <Container>
-      { types && types.data
-        ? <h1>{ types.data[0].attributes.title }
+      { types && types.length > 0
+        ? <h1>{ types[0].title }
             { loading ? <>&nbsp;<FontAwesomeIcon size='sm' icon='spinner' className='fa-spin' /></> : null }
           </h1>
         : null

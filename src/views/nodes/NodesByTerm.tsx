@@ -8,7 +8,7 @@ import NodeCard from "../../components/NodeCard";
 import PaginationLinks from "../../components/PaginationLinks";
 import config from '../../config';
 import { useApi } from "../../context/api";
-import { ApiMeta, NodesSearchParams, Post } from "../../types/entities";
+import { ApiMeta, NodesSearchParams, Post, Term } from "../../types/entities";
 
 const dataFormatter = new Jsona({
   modelPropertiesMapper: new SwitchCaseModelMapper(),
@@ -23,7 +23,7 @@ const NodesByTerm: FunctionComponent = props => {
   const { Nodes, Terms } = useApi();
   const [ nodes, setNodes ] = useState([] as Post[]);
   const [ nodesMeta, setNodesMeta ] = useState({} as ApiMeta);
-  const [ terms, setTerms ] = useState({} as any);
+  const [ terms, setTerms ] = useState({} as Term[]);
   const [ loading, setLoading ] = useState(false);
 
   const params = {
@@ -56,10 +56,11 @@ const NodesByTerm: FunctionComponent = props => {
       })
       .then(res => res.data)
       .then(data => {
-        if (data.data[0]) {
-          document.title = config.site.title + ' | ' + data.data[0].attributes.title;
+        const terms = dataFormatter.deserialize(data) as Term[];
+        if (terms.length > 0) {
+          document.title = config.site.title + ' | ' + terms[0].title;
         }
-        setTerms(data)
+        setTerms(terms)
       });
 
     Promise.all([p1, p2])
@@ -69,8 +70,8 @@ const NodesByTerm: FunctionComponent = props => {
 
   return (
     <Container>
-      { terms && terms.data
-        ? <h1>{ terms.data[0].attributes.title }
+      { terms && terms.length > 0
+        ? <h1>{ terms[0].title }
 
           </h1>
         : null

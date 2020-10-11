@@ -32,19 +32,19 @@ export function useApi() {
 
     Types: {
       index: function(config ?: AxiosRequestConfig | undefined) {
-        return axios.get('/types', config)
+        return axios.get<ApiIndex>('/types', config)
       },
     },
 
     Terms: {
       index: function(config ?: AxiosRequestConfig | undefined) {
-        return axios.get('/terms', config)
+        return axios.get<ApiIndex>('/terms', config)
       },
     },
 
     Blocks: {
       index: function(config ?: AxiosRequestConfig | undefined) {
-        return axios.get('/blocks', config)
+        return axios.get<ApiIndex>('/blocks', config)
       },
     }
 

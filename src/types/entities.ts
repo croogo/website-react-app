@@ -16,6 +16,27 @@ export interface ApiIndex extends TJsonApiBody {
   meta: ApiMeta;
 }
 
+export interface Block extends TJsonaModel {
+  id: number;
+  title: string;
+  alias: string;
+  regionId: number;
+  body: string;
+  rendered: string;
+}
+
+export interface Term extends TJsonaModel {
+  id: number;
+  title: string;
+  slug: string;
+}
+
+export interface Type extends TJsonaModel {
+  id: number;
+  title: string;
+  alias: string;
+}
+
 export interface Post extends TJsonaModel {
   id: number;
   title: string;
