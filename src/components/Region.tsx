@@ -1,14 +1,8 @@
 import parse, { attributesToProps, HTMLReactParserOptions } from 'html-react-parser';
-import Jsona, { SwitchCaseJsonMapper, SwitchCaseModelMapper } from 'jsona';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useApi } from '../context/api';
+import { dataFormatter, useApi } from '../context/api';
 import { Block } from '../types/entities';
-
-const dataFormatter = new Jsona({
-  modelPropertiesMapper: new SwitchCaseModelMapper(),
-  jsonPropertiesMapper: new SwitchCaseJsonMapper(),
-})
 
 declare interface RegionProps {
   name: string,

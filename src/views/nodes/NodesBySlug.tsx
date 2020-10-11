@@ -1,16 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Jsona, { SwitchCaseJsonMapper, SwitchCaseModelMapper } from 'jsona';
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container } from "reactstrap";
 import NodeCard from "../../components/NodeCard";
-import { useApi } from "../../context/api";
+import { dataFormatter, useApi } from "../../context/api";
 import { NodesSearchParams, Post } from "../../types/entities";
-
-const dataFormatter = new Jsona({
-  modelPropertiesMapper: new SwitchCaseModelMapper(),
-  jsonPropertiesMapper: new SwitchCaseJsonMapper(),
-})
 
 const NodesBySlug = () => {
   const { type, slug } = useParams<NodesSearchParams>();
