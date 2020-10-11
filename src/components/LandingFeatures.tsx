@@ -1,15 +1,11 @@
 import React from 'react';
-import {
-  Container,
-  Row,
-  Col
-} from 'reactstrap';
+import { Col, Container, Row } from 'reactstrap';
+import bootstrap from '../assets/img/bootstrap.png';
+import cakephp from '../assets/img/cakephp_small.png';
+import php from '../assets/img/php.png';
+import sql from '../assets/img/sql.png';
 import Feature from './Feature';
 
-import php from '../assets/img/php.png';
-import cakephp from '../assets/img/cakephp_small.png';
-import sql from '../assets/img/sql.png';
-import bootstrap from '../assets/img/bootstrap.png';
 
 const LandingFeatures = () => {
   let fProps = [
@@ -36,7 +32,7 @@ const LandingFeatures = () => {
       imgPath: bootstrap,
       title: "Works with Bootstrap",
       text: "Built with Bootstrap for responsive admini UI.",
-    },  ]
+    },]
 
   let features = fProps.map((feature, index) => {
     return (
@@ -51,11 +47,11 @@ const LandingFeatures = () => {
       <Container>
 
         <h1 className='text-center'>
-            Built on proven technologies
+          Built on proven technologies
         </h1>
 
         <Row>
-            {features}
+          {features}
         </Row>
       </Container>
     </div>

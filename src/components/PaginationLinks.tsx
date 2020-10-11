@@ -31,20 +31,20 @@ const PaginationLinks = (props: ApiMeta) => {
   const last = location.pathname + '?' + qs.stringify(lastParam);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center'}}>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
 
       <Pagination size='lg'>
         <PaginationItem>
-          <PaginationLink first to={ first } tag={ Link } />
+          <PaginationLink first to={first} tag={Link} />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink previous to={ prev } tag={ Link }/>
+          <PaginationLink previous to={prev} tag={Link} />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink next to={ next } tag={ Link }/>
+          <PaginationLink next to={next} tag={Link} />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink last to={ last } tag={ Link }/>
+          <PaginationLink last to={last} tag={Link} />
         </PaginationItem>
       </Pagination>
 

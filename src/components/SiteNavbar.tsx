@@ -13,8 +13,8 @@ declare interface SiteNavbarProps {
 
 const SiteNavbar = (props: SiteNavbarProps) => {
   const { Links } = useApi();
-  const [ isOpen, setIsOpen ] = useState(false);
-  const [ links, setLinks ] = useState([] as MenuItem[]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [links, setLinks] = useState([] as MenuItem[]);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -34,36 +34,36 @@ const SiteNavbar = (props: SiteNavbarProps) => {
 
   return (
     <Navbar expand="lg" light className="light mb-4">
-    <Container>
-      <NavLink to="/" tag={ RNavLink } className="navbar-brand d-fles align-items-center text-dark">
-        <img className="mr-2 img-fluid rounded" style={{height: 30}} src={logo} alt="logo" />
-        { config.site.name }
-      </NavLink>
-      <NavbarToggler onClick={ toggle } />
-      <Collapse isOpen={ isOpen } navbar>
-        <Nav className="ml-lg-auto" navbar>
+      <Container>
+        <NavLink to="/" tag={RNavLink} className="navbar-brand d-fles align-items-center text-dark">
+          <img className="mr-2 img-fluid rounded" style={{ height: 30 }} src={logo} alt="logo" />
+          {config.site.name}
+        </NavLink>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="ml-lg-auto" navbar>
 
-          {
-            links && links.map(link => (
-            <NavItem className='mx-2'>
-            { link.path.startsWith('http')
-                ? <NavLink href={ link.path } className={ link.class } target={ link.target } rel={ link.rel }>{ link.title }</NavLink>
-                : <NavLink to={ link.path } tag={ RNavLink }>{ link.title }</NavLink>
+            {
+              links && links.map(link => (
+                <NavItem className='mx-2'>
+                  { link.path.startsWith('http')
+                    ? <NavLink href={link.path} className={link.class} target={link.target} rel={link.rel}>{link.title}</NavLink>
+                    : <NavLink to={link.path} tag={RNavLink}>{link.title}</NavLink>
+                  }
+                </NavItem>
+              ))
             }
-            </NavItem>
-            ))
-          }
 
-          <NavItem className='mx-2'>
-            <Button color='primary' href='https://downloads.croogo.org'>
-              <FontAwesomeIcon icon="download" /> {" "}
+            <NavItem className='mx-2'>
+              <Button color='primary' href='https://downloads.croogo.org'>
+                <FontAwesomeIcon icon="download" /> {" "}
               Download
             </Button>
-          </NavItem>
-        </Nav>
-      </Collapse>
-    </Container>
-  </Navbar>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Container>
+    </Navbar>
   );
 }
 

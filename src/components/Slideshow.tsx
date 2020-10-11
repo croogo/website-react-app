@@ -1,5 +1,5 @@
-import { Slide } from 'react-slideshow-image';
 import React from 'react';
+import { Slide } from 'react-slideshow-image';
 
 const properties = {
   duration: 5000,
@@ -13,7 +13,7 @@ const properties = {
   }
 }
 
-declare interface SlideshowProps{
+declare interface SlideshowProps {
   images: string[],
 }
 
@@ -23,7 +23,7 @@ const Slideshow = (props: SlideshowProps) => {
     <div className="slide-container">
       <Slide {...properties}>
         {images.map((imageUrl: string, index: number) => (
-          <div key={ `slide-${index}` } className="each-slide">
+          <div key={`slide-${index}`} className="each-slide">
             <div style={{ backgroundSize: 'cover', backgroundImage: `url(${imageUrl})` }}>
             </div>
           </div>

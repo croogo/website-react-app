@@ -9,7 +9,7 @@ export const dataFormatter = new Jsona({
   jsonPropertiesMapper: new SwitchCaseJsonMapper(),
 })
 
-export const ApiContext = createContext({token: '', setToken: (data: string) : void => {}});
+export const ApiContext = createContext({ token: '', setToken: (data: string): void => { } });
 
 export function useApi() {
 
@@ -31,31 +31,31 @@ export function useApi() {
 
   return {
     Links: {
-      index: function(config ?: AxiosRequestConfig | undefined) {
+      index: function (config?: AxiosRequestConfig | undefined) {
         return axios.get<ApiIndex>('/links', config)
       },
     },
 
     Nodes: {
-      index: function(config ?: AxiosRequestConfig | undefined) {
+      index: function (config?: AxiosRequestConfig | undefined) {
         return axios.get<ApiIndex>('/nodes', config)
       },
     },
 
     Types: {
-      index: function(config ?: AxiosRequestConfig | undefined) {
+      index: function (config?: AxiosRequestConfig | undefined) {
         return axios.get<ApiIndex>('/types', config)
       },
     },
 
     Terms: {
-      index: function(config ?: AxiosRequestConfig | undefined) {
+      index: function (config?: AxiosRequestConfig | undefined) {
         return axios.get<ApiIndex>('/terms', config)
       },
     },
 
     Blocks: {
-      index: function(config ?: AxiosRequestConfig | undefined) {
+      index: function (config?: AxiosRequestConfig | undefined) {
         return axios.get<ApiIndex>('/blocks', config)
       },
     }

@@ -12,11 +12,11 @@ export const Feature = (props: FeatureProps) => {
   return (
     <div className="feature text-center">
       { imgPath
-          ? <img alt='' src={ imgPath } className='img-fluid mb-5' style={{ maxHeight: '120px' }}/>
-          : null
+        ? <img alt='' src={imgPath} className='img-fluid mb-5' style={{ maxHeight: '120px' }} />
+        : null
       }
-      <h5 className={`text-${ color }`}>{ title }</h5>
-      <p className="lead">{ text }</p>
+      <h5 className={`text-${color}`}>{title}</h5>
+      <p className="lead">{text}</p>
     </div>
   );
 };

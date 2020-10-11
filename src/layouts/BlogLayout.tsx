@@ -9,26 +9,24 @@ const BlogLayout: FunctionComponent = (props) => {
 
   const location = useLocation();
   useEffect(() => {
-    document.querySelector('.card-title')?.scrollIntoView({behavior: "smooth", block: 'nearest'});
+    document.querySelector('.card-title')?.scrollIntoView({ behavior: "smooth", block: 'nearest' });
   }, [location]);
 
-  return (
-    <>
-      <SiteNavbar menuAlias='main'/>
-      <Container>
+  return (<>
+    <SiteNavbar menuAlias='main' />
+    <Container>
 
       <Row>
-        <Col md={ 8 }>
+        <Col md={8}>
           {props.children}
         </Col>
-        <Col md={ 4 }>
+        <Col md={4}>
           <Region name='right' />
         </Col>
       </Row>
-      </Container>
-      <Footer />
-    </>
-  );
+    </Container>
+    <Footer />
+  </>);
 };
 
 export default BlogLayout;

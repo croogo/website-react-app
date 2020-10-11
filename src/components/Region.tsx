@@ -11,7 +11,7 @@ declare interface RegionProps {
 const Region = (props: RegionProps) => {
   const { name } = props;
   const { Blocks } = useApi();
-  const [ blocks, setBlocks ] = useState([] as Block[]);
+  const [blocks, setBlocks] = useState([] as Block[]);
   const location = useLocation();
 
   useEffect(useCallback(() => {
@@ -39,7 +39,7 @@ const Region = (props: RegionProps) => {
               delete linkProps['href'];
               const linkData = node.children?.shift()?.data;
               return linkData
-                ? <Link to={ node.attribs.href } {...linkProps}>{ linkData }</Link>
+                ? <Link to={node.attribs.href} {...linkProps}>{linkData}</Link>
                 : null;
             } else {
               return node;
@@ -48,9 +48,9 @@ const Region = (props: RegionProps) => {
         };
         const parsedHtml = parse(block.rendered ?? block.body, options);
         return (
-          <div key={ `block-${block.id}` }>{ parsedHtml }</div>
+          <div key={`block-${block.id}`}>{parsedHtml}</div>
         );
-      }) }
+      })}
     </div>
   );
 }
