@@ -13,18 +13,17 @@ export const ApiContext = createContext({ token: '', setToken: (data: string): v
 
 export function useApi() {
 
-  const token = '';
+  const token = process.env.REACT_APP_API_TOKEN;
 
   let axiosConfig: AxiosRequestConfig = {
     baseURL: config.api.baseUrl,
     headers: {
       'Accept': 'application/vnd.api+json',
-      'X-ApiToken': config.api.token,
+      'X-ApiToken': token,
     },
   };
 
   if (token) {
-    axiosConfig.headers['Authorization'] = `Bearer ${token}`;
   }
 
   const axios = Axios.create(axiosConfig);
