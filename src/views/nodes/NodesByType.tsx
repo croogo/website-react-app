@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Jsona, { SwitchCaseJsonMapper, SwitchCaseModelMapper } from 'jsona';
 import qs from 'qs';
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -7,15 +6,12 @@ import { Container } from "reactstrap";
 import NodeCard from "../../components/NodeCard";
 import PaginationLinks from "../../components/PaginationLinks";
 import config from '../../config';
-import { useApi } from "../../context/api";
+import { dataFormatter, useApi } from "../../context/api";
+import { useUi } from '../../context/ui';
 import { ApiMeta, NodesSearchParams, Post, Type } from '../../types/entities';
 
-const dataFormatter = new Jsona({
-  modelPropertiesMapper: new SwitchCaseModelMapper(),
-  jsonPropertiesMapper: new SwitchCaseJsonMapper(),
-})
-
 const NodesByType: FunctionComponent = props => {
+  const { isLoading, setLoading } = useUi();
   const { type }= useParams<NodesSearchParams>();
   const location = useLocation()
   const queryString = qs.parse(location.search.slice(1))
@@ -24,7 +20,6 @@ const NodesByType: FunctionComponent = props => {
   const [ nodes, setNodes ] = useState([] as Post[]);
   const [ nodesMeta, setNodesMeta ] = useState({} as ApiMeta);
   const [ types, setTypes ] = useState([] as Type[]);
-  const [ loading, setLoading ] = useState(false);
 
   const params = {
     page,
@@ -71,7 +66,7 @@ const NodesByType: FunctionComponent = props => {
     <Container>
       { types && types.length > 0
         ? <h1>{ types[0].title }
-            { loading ? <>&nbsp;<FontAwesomeIcon size='sm' icon='spinner' className='fa-spin' /></> : null }
+            { isLoading ? <>&nbsp;<FontAwesomeIcon size='sm' icon='spinner' className='fa-spin' /></> : null }
           </h1>
         : null
       }
@@ -81,7 +76,7 @@ const NodesByType: FunctionComponent = props => {
 
       { nodes && nodes.length > 0
         ? <PaginationLinks location={ location } params={ params } meta={ nodesMeta }/>
-        : loading ? null : <>No { type } entry found </>
+        : isLoading ? null : <>No { type } entry found </>
       }
     </Container>
   )

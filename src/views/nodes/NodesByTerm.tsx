@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Jsona, { SwitchCaseJsonMapper, SwitchCaseModelMapper } from 'jsona';
 import qs from 'qs';
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -7,15 +6,12 @@ import { Container } from "reactstrap";
 import NodeCard from "../../components/NodeCard";
 import PaginationLinks from "../../components/PaginationLinks";
 import config from '../../config';
-import { useApi } from "../../context/api";
+import { dataFormatter, useApi } from "../../context/api";
+import { useUi } from '../../context/ui';
 import { ApiMeta, NodesSearchParams, Post, Term } from "../../types/entities";
 
-const dataFormatter = new Jsona({
-  modelPropertiesMapper: new SwitchCaseModelMapper(),
-  jsonPropertiesMapper: new SwitchCaseJsonMapper(),
-})
-
 const NodesByTerm: FunctionComponent = props => {
+  const { isLoading, setLoading } = useUi();
   const { type, term } = useParams<NodesSearchParams>();
   const location = useLocation()
   const queryString = qs.parse(location.search.slice(1))
@@ -24,7 +20,6 @@ const NodesByTerm: FunctionComponent = props => {
   const [ nodes, setNodes ] = useState([] as Post[]);
   const [ nodesMeta, setNodesMeta ] = useState({} as ApiMeta);
   const [ terms, setTerms ] = useState({} as Term[]);
-  const [ loading, setLoading ] = useState(false);
 
   const params = {
     page,
@@ -77,7 +72,7 @@ const NodesByTerm: FunctionComponent = props => {
         : null
       }
 
-      { loading ? <FontAwesomeIcon size='3x' icon='spinner' className='fa-spin' /> : null }
+      { isLoading ? <FontAwesomeIcon size='3x' icon='spinner' className='fa-spin' /> : null }
 
       { nodes && nodes.map(node => {
         return <NodeCard key={`nodecard-${node.id}`} node={ node } isIndex/>
@@ -85,7 +80,7 @@ const NodesByTerm: FunctionComponent = props => {
 
       { nodes && nodes.length > 0
         ? <PaginationLinks location={ location } params={ params } meta={ nodesMeta }/>
-        : loading ? null : <>No { type } with { term } entry found </>
+        : isLoading ? null : <>No { type } with { term } entry found </>
       }
     </Container>
   )

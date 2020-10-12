@@ -4,13 +4,14 @@ import { useParams } from "react-router-dom";
 import { Container } from "reactstrap";
 import NodeCard from "../../components/NodeCard";
 import { dataFormatter, useApi } from "../../context/api";
+import { useUi } from '../../context/ui';
 import { NodesSearchParams, Post } from "../../types/entities";
 
 const NodesBySlug = () => {
+  const { isLoading, setLoading } = useUi();
   const { type, slug } = useParams<NodesSearchParams>();
   const { Nodes } = useApi();
   const [ nodes, setNodes ] = useState([] as Post[]);
-  const [ loading, setLoading ] = useState(false);
 
   useEffect(useCallback(() => {
     setLoading(true);
@@ -36,10 +37,10 @@ const NodesBySlug = () => {
 
   return (
     <Container>
-      { loading ? <div><FontAwesomeIcon size='3x' icon='spinner' className='fa-spin' /></div> : null }
+      { isLoading ? <div><FontAwesomeIcon size='3x' icon='spinner' className='fa-spin' /></div> : null }
 
       { nodes && nodes.map((node) => {
-        return <NodeCard key={ `nodecard-${node.id}` } node={ node } author={ node.user } loading={ loading }/>
+        return <NodeCard key={ `nodecard-${node.id}` } node={ node } author={ node.user } loading={ isLoading }/>
       })}
     </Container>
   )
