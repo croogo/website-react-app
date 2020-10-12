@@ -17,6 +17,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/reactstrap": "^8.4.3",
     "axios": "^0.20.0",
+    "axios-cache-adapter": "^2.5.0",
     "bootstrap": "^4.5.2",
     "html-react-parser": "^0.14.0",
     "jsona": "^1.8.0",

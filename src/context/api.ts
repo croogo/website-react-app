@@ -1,8 +1,18 @@
 import Axios, { AxiosRequestConfig } from 'axios';
+import { setupCache } from 'axios-cache-adapter';
 import Jsona, { SwitchCaseJsonMapper, SwitchCaseModelMapper } from 'jsona';
+import qs from 'qs';
 import { createContext } from 'react';
 import config from '../config';
 import { ApiIndex } from '../types/entities';
+
+const cache = setupCache({
+  maxAge: 5 * 60 * 1000,
+  exclude: {
+    query: false,
+  },
+  key: (req: any) => req.url + qs.stringify(req.params),
+});
 
 export const dataFormatter = new Jsona({
   modelPropertiesMapper: new SwitchCaseModelMapper(),
@@ -21,6 +31,7 @@ export function useApi() {
       'Accept': 'application/vnd.api+json',
       'X-ApiToken': token,
     },
+    adapter: cache.adapter,
   };
 
   if (token) {
