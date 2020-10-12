@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import qs from 'qs';
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -66,7 +65,6 @@ const NodesByType: FunctionComponent = props => {
     <Container>
       { types && types.length > 0
         ? <h1>{ types[0].title }
-            { isLoading ? <>&nbsp;<FontAwesomeIcon size='sm' icon='spinner' className='fa-spin' /></> : null }
           </h1>
         : null
       }

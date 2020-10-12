@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import qs from 'qs';
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -61,7 +60,7 @@ const NodesByTerm: FunctionComponent = props => {
     Promise.all([p1, p2])
       .finally(() => setLoading(false));
 
-  }, [Nodes, Terms, term, params, setNodes, setTerms]), [ location ]);
+  }, [Nodes, Terms, term, params, setNodes, setTerms, setLoading]), [ location ]);
 
   return (
     <Container>
@@ -71,8 +70,6 @@ const NodesByTerm: FunctionComponent = props => {
           </h1>
         : null
       }
-
-      { isLoading ? <FontAwesomeIcon size='3x' icon='spinner' className='fa-spin' /> : null }
 
       { nodes && nodes.map(node => {
         return <NodeCard key={`nodecard-${node.id}`} node={ node } isIndex/>

@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container } from "reactstrap";
@@ -8,7 +7,7 @@ import { useUi } from '../../context/ui';
 import { NodesSearchParams, Post } from "../../types/entities";
 
 const NodesBySlug = () => {
-  const { isLoading, setLoading } = useUi();
+  const { setLoading } = useUi();
   const { type, slug } = useParams<NodesSearchParams>();
   const { Nodes } = useApi();
   const [ nodes, setNodes ] = useState([] as Post[]);
@@ -33,14 +32,12 @@ const NodesBySlug = () => {
       })
       .finally(() => setLoading(false));
 
-  }, [Nodes, type, slug, setNodes]), [type, slug]);
+  }, [Nodes, type, slug, setNodes, setLoading]), [type, slug]);
 
   return (
     <Container>
-      { isLoading ? <div><FontAwesomeIcon size='3x' icon='spinner' className='fa-spin' /></div> : null }
-
       { nodes && nodes.map((node) => {
-        return <NodeCard key={ `nodecard-${node.id}` } node={ node } author={ node.user } loading={ isLoading }/>
+        return <NodeCard key={ `nodecard-${node.id}` } node={ node } author={ node.user } />
       })}
     </Container>
   )

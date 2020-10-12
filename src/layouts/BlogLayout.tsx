@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
+import { NProgressBar } from '../components/NProgressBar';
 import Region from '../components/Region';
 import SiteNavbar from '../components/SiteNavbar';
 import Footer from "./../components/Footer";
@@ -13,6 +14,7 @@ const BlogLayout: FunctionComponent = (props) => {
   }, [location]);
 
   return (<>
+    <NProgressBar />
     <SiteNavbar menuAlias='main' />
     <Container>
 
