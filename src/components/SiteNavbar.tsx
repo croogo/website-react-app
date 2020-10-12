@@ -47,7 +47,7 @@ const SiteNavbar = (props: SiteNavbarProps) => {
 
             {
               menuItems.get(props.menuAlias)?.map(link => (
-                <NavItem className='mx-2'>
+                <NavItem key={`nav-item-${link.id}`} className='mx-2'>
                   { link.path.startsWith('http')
                     ? <NavLink href={link.path} className={link.class} target={link.target} rel={link.rel}>{link.title}</NavLink>
                     : <NavLink to={link.path} tag={RNavLink}>{link.title}</NavLink>

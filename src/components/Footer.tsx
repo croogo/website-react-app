@@ -33,7 +33,7 @@ const Footer = () => {
           <div className="links">
             <ul className="footer-menu list-unstyled d-flex flex-row text-center text-md-left">
               {links && links.map(link => (
-                <li><a href={link.path} target={link.target} rel={link.rel}>{link.title}</a></li>
+                <li key={`link-${link.id}`}><a href={link.path} target={link.target} rel={link.rel}>{link.title}</a></li>
               ))}
             </ul>
           </div>
