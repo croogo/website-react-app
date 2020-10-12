@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import Analytics from 'react-router-ga';
 import NotFound from './components/NotFound';
 import config from './config';
@@ -21,19 +21,16 @@ function App() {
       <Router>
         <Analytics id={config.ga.propertyId}>
           <Switch>
-            <Route exact path='/support'>
-              <Redirect to='/page/support' />
-            </Route>
             {routes.map((route, index) => {
               return (
                 <Route
                   key={index}
                   path={route.path}
                   exact={route.exact}
-                  component={() => {
+                  component={(props: RouteComponentProps) => {
                     return (
                       <route.layout>
-                        <route.component />
+                        <route.component {...props} />
                       </route.layout>
                     )
                   }}

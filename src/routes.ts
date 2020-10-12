@@ -5,13 +5,21 @@ import NodesByTerm from "./views/nodes/NodesByTerm";
 import NodesByType from "./views/nodes/NodesByType";
 import Presentation from "./views/Presentation";
 
+let staticRoutes = [
+  {
+    path: "/support",
+    exact: true,
+    layout: BlogLayout,
+    component: NodesBySlug,
+  },
+];
+
 let presentationRoutes = [
   {
     path: "/",
     exact: true,
     layout: DefaultLayout,
     component: Presentation,
-    name: "Presentation"
   },
   {
     path: "/:type(page|blog)/term/:term",
@@ -33,5 +41,5 @@ let presentationRoutes = [
   },
 ];
 
-let routes = [...presentationRoutes];
+let routes = [...staticRoutes, ...presentationRoutes];
 export { routes, presentationRoutes };

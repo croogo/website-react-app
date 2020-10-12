@@ -1,24 +1,25 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { RouteComponentProps, useParams } from "react-router-dom";
 import { Container } from "reactstrap";
 import NodeCard from "../../components/NodeCard";
 import { dataFormatter, useApi } from "../../context/api";
 import { useUi } from '../../context/ui';
 import { NodesSearchParams, Post } from "../../types/entities";
 
-const NodesBySlug = () => {
+const NodesBySlug = (props?: RouteComponentProps) => {
   const { setLoading } = useUi();
   const { type, slug } = useParams<NodesSearchParams>();
   const { Nodes } = useApi();
   const [ nodes, setNodes ] = useState([] as Post[]);
+  const pageSlug = props?.match.path.slice(1); // fallback path
 
   useEffect(useCallback(() => {
     setLoading(true);
     Nodes
       .index({
         params: {
-          type,
-          slug,
+          type: type ?? 'page',
+          slug: slug ?? pageSlug,
           limit: 1,
           sort: '-publish_start',
           include: 'users',
@@ -32,7 +33,7 @@ const NodesBySlug = () => {
       })
       .finally(() => setLoading(false));
 
-  }, [Nodes, type, slug, setNodes, setLoading]), [type, slug]);
+  }, [Nodes, type, slug, setNodes, setLoading, pageSlug]), [type, slug, pageSlug]);
 
   return (
     <Container>
