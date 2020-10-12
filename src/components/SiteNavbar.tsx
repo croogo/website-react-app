@@ -5,7 +5,7 @@ import { Button, Collapse, Container, Nav, Navbar, NavbarToggler, NavItem, NavLi
 import logo from '../assets/img/logo_croogo.png';
 import config from '../config';
 import { dataFormatter, useApi } from '../context/api';
-import { MenuItem } from '../types/entities';
+import { useUi } from '../context/ui';
 
 declare interface SiteNavbarProps {
   menuAlias: string;
@@ -13,8 +13,8 @@ declare interface SiteNavbarProps {
 
 const SiteNavbar = (props: SiteNavbarProps) => {
   const { Links } = useApi();
+  const { menuItems, setMenuItems } = useUi();
   const [isOpen, setIsOpen] = useState(false);
-  const [links, setLinks] = useState([] as MenuItem[]);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -28,9 +28,11 @@ const SiteNavbar = (props: SiteNavbarProps) => {
       .then(res => res.data)
       .then(json => {
         const links = dataFormatter.deserialize(json) as any[];
-        setLinks(links);
+        const newMenuItems = new Map(menuItems)
+        newMenuItems.set(props.menuAlias, links);
+        setMenuItems(newMenuItems);
       });
-  }, [Links, props.menuAlias]), []);
+  }, [Links, props.menuAlias, menuItems, setMenuItems]), []);
 
   return (
     <Navbar expand="lg" light className="light mb-4">
@@ -44,7 +46,7 @@ const SiteNavbar = (props: SiteNavbarProps) => {
           <Nav className="ml-lg-auto" navbar>
 
             {
-              links && links.map(link => (
+              menuItems.get(props.menuAlias)?.map(link => (
                 <NavItem className='mx-2'>
                   { link.path.startsWith('http')
                     ? <NavLink href={link.path} className={link.class} target={link.target} rel={link.rel}>{link.title}</NavLink>
