@@ -21,6 +21,7 @@
     "html-react-parser": "^0.14.0",
     "jsona": "^1.8.0",
     "node-sass": "^4.14.1",
+    "nprogress": "^0.2.0",
     "qs": "^6.9.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
