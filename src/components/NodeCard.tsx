@@ -1,12 +1,42 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardBody, CardFooter } from 'reactstrap';
-import { Post } from '../types/entities';
+import { Card, CardBody, CardFooter, CardImg } from 'reactstrap';
+import { LinkedAssets, Post } from '../types/entities';
 
 declare interface NodeCardProps {
   node: Post;
   isIndex?: boolean;
   loading?: boolean;
+}
+
+/**
+ * Gets poster for node
+ *
+ * @param post Post
+ */
+function getPoster(post: Post) {
+
+  const getAsset = (linkedAssets: LinkedAssets, name: string) => {
+    if (!Array.isArray(linkedAssets) && typeof linkedAssets[name] !== undefined) {
+      return linkedAssets[name][0].path;
+    }
+  }
+
+  const postPoster = getAsset(post.linkedAssets, 'FeaturedImage');
+  if (postPoster) {
+    return postPoster;
+  }
+
+  const posterList = post?.taxonomies?.filter(taxonomy => {
+    // when linkedAssets is empty, it return an empty array (otherwise it's an Object)
+    return !Array.isArray(taxonomy.term?.linkedAssets);
+  });
+
+  if (posterList && typeof(posterList[0]) !== undefined) {
+    if (posterList && posterList.length > 0) {
+      return getAsset(posterList[0].term.linkedAssets, 'DefaultAsset');
+    }
+  }
 }
 
 const NodeCard = (props: NodeCardProps) => {
@@ -19,13 +49,17 @@ const NodeCard = (props: NodeCardProps) => {
         { taxonomy?.term.title}
       </Link>
     );
-
   })
+
+  const poster = getPoster(node);
 
   return (
     <Card className='mb-5 no-hover'>
-      <CardBody>
+      { poster && !isIndex
+        ? <CardImg className='card-img-top' src={ poster } />
+        : null }
 
+      <CardBody>
         <h4 className={(isIndex ? '' : 'display-4 ') + 'card-title'}>
           {node.title}
         </h4>

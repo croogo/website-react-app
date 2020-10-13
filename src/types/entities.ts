@@ -35,6 +35,15 @@ export interface MenuItem {
   rel: string;
 }
 
+export interface Attachment {
+  id: number;
+  path: string;
+}
+
+export type LinkedAssets = {
+  [key: string]: Attachment[],
+} | [];
+
 export interface Taxonomy {
   id: number;
   title: string;
@@ -46,6 +55,7 @@ export interface Term extends TJsonaModel {
   id: number;
   title: string;
   slug: string;
+  linkedAssets: LinkedAssets;
 }
 
 export interface Type extends TJsonaModel {
@@ -62,6 +72,7 @@ export interface Post extends TJsonaModel {
   publishStart: string;
   path: string;
   user?: User;
+  linkedAssets: LinkedAssets;
   taxonomies?: Taxonomy[];
 }
 
