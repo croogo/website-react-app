@@ -22,7 +22,7 @@ const NodesBySlug = (props?: RouteComponentProps) => {
           slug: slug ?? pageSlug,
           limit: 1,
           sort: '-publish_start',
-          include: 'users',
+          include: 'users,types,taxonomies.terms,taxonomies.vocabularies',
         },
       })
       .then(res => res.data)
@@ -35,10 +35,11 @@ const NodesBySlug = (props?: RouteComponentProps) => {
 
   }, [Nodes, type, slug, setNodes, setLoading, pageSlug]), [type, slug, pageSlug]);
 
+
   return (
     <Container>
       { nodes && nodes.map((node) => {
-        return <NodeCard key={ `nodecard-${node.id}` } node={ node } author={ node.user } />
+        return <NodeCard key={ `nodecard-${node.id}` } node={ node } />
       })}
     </Container>
   )

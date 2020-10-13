@@ -35,6 +35,13 @@ export interface MenuItem {
   rel: string;
 }
 
+export interface Taxonomy {
+  id: number;
+  title: string;
+  slug: string;
+  term: Term,
+}
+
 export interface Term extends TJsonaModel {
   id: number;
   title: string;
@@ -55,6 +62,7 @@ export interface Post extends TJsonaModel {
   publishStart: string;
   path: string;
   user?: User;
+  taxonomies?: Taxonomy[];
 }
 
 export interface User extends TJsonaModel {

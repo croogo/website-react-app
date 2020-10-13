@@ -26,7 +26,7 @@ const NodesByTerm: FunctionComponent = props => {
     term,
     limit: 5,
     sort: '-publish_start',
-    include: 'users',
+    include: 'users,types,taxonomies.terms,taxonomies.vocabularies',
   }
 
   useEffect(useCallback(() => {
