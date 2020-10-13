@@ -57,6 +57,7 @@ const NodesByType: FunctionComponent = props => {
       });
 
     Promise.all([p1, p2])
+      .catch(e => console.error)
       .finally(() => setLoading(false));
 
   }, [Nodes, Types, type, params, setNodes, setTypes, setLoading]), [ location ]);

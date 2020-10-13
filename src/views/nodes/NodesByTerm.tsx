@@ -58,6 +58,7 @@ const NodesByTerm: FunctionComponent = props => {
       });
 
     Promise.all([p1, p2])
+      .catch(e => console.error)
       .finally(() => setLoading(false));
 
   }, [Nodes, Terms, term, params, setNodes, setTerms, setLoading]), [ location ]);

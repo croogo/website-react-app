@@ -5,14 +5,17 @@ import {
   Container
 } from "reactstrap";
 import { dataFormatter, useApi } from '../context/api';
+import { useUi } from '../context/ui';
 import { MenuItem } from '../types/entities';
 
 const Footer = () => {
   const { Links } = useApi();
+  const { setLoading } = useUi();
   const year = (new Date()).getFullYear();
   const [links, setLinks] = useState([] as MenuItem[]);
 
   useEffect(useCallback(() => {
+    setLoading(true);
     Links
       .index({
         params: {
@@ -23,8 +26,10 @@ const Footer = () => {
       .then(json => {
         const links = dataFormatter.deserialize(json) as MenuItem[];
         setLinks(links);
-      });
-  }, [Links]), []);
+      })
+      .catch(e => console.error)
+      .finally(() => setLoading(false));
+  }, [Links, setLoading]), []);
 
   return (
     <footer className="footer-1 bg-light text-dark">

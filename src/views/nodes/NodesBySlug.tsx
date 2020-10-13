@@ -31,6 +31,7 @@ const NodesBySlug = (props?: RouteComponentProps) => {
         document.title = nodes[0].title;
         setNodes(nodes);
       })
+      .catch(e => console.error)
       .finally(() => setLoading(false));
 
   }, [Nodes, type, slug, setNodes, setLoading, pageSlug]), [type, slug, pageSlug]);

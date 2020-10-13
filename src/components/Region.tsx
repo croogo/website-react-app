@@ -2,6 +2,7 @@ import parse, { attributesToProps, HTMLReactParserOptions } from 'html-react-par
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { dataFormatter, useApi } from '../context/api';
+import { useUi } from '../context/ui';
 import { Block } from '../types/entities';
 
 declare interface RegionProps {
@@ -11,10 +12,12 @@ declare interface RegionProps {
 const Region = (props: RegionProps) => {
   const { name } = props;
   const { Blocks } = useApi();
+  const { setLoading } = useUi();
   const [blocks, setBlocks] = useState([] as Block[]);
   const location = useLocation();
 
   useEffect(useCallback(() => {
+    setLoading(true);
     Blocks
       .index({
         params: {
@@ -25,8 +28,10 @@ const Region = (props: RegionProps) => {
       .then(json => {
         const blocks = dataFormatter.deserialize(json) as Block[];
         setBlocks(blocks);
-      });
-  }, [Blocks, name, setBlocks]), [location])
+      })
+      .catch(e => console.error)
+      .finally(() => setLoading(false));
+  }, [Blocks, name, setBlocks, setLoading]), [location])
 
   return (
     <div className='mt-5'>

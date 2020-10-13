@@ -13,12 +13,13 @@ declare interface SiteNavbarProps {
 
 const SiteNavbar = (props: SiteNavbarProps) => {
   const { Links } = useApi();
-  const { menuItems, setMenuItems } = useUi();
+  const { setLoading, menuItems, setMenuItems } = useUi();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
   useEffect(useCallback(() => {
+    setLoading(true);
     Links
       .index({
         params: {
@@ -31,8 +32,10 @@ const SiteNavbar = (props: SiteNavbarProps) => {
         const newMenuItems = new Map(menuItems)
         newMenuItems.set(props.menuAlias, links);
         setMenuItems(newMenuItems);
-      });
-  }, [Links, props.menuAlias, menuItems, setMenuItems]), []);
+      })
+      .catch(e => console.error)
+      .finally(() => setLoading(false));
+  }, [Links, props.menuAlias, menuItems, setLoading, setMenuItems]), []);
 
   return (
     <Navbar expand="lg" light className="light mb-4">
