@@ -17,7 +17,7 @@ const LandingHeader = () => {
         <Row>
           <Col xs="12" md="5" className='my-5'>
             <h1 className="display-4">A CakePHP CMS</h1>
-            <p className="lead my-4">Baking since 2005!</p>
+            <p className="lead my-4">Baking since 2009!</p>
             <Form className="form-subscribe form-inline mb-3">
               <a href='https://downloads.croogo.org/' className="btn btn-primary mt-0 mt-md-3 mt-lg-0">Download</a>
             </Form>
