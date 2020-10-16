@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from "react";
+import { Helmet } from 'react-helmet';
 import { RouteComponentProps, useParams } from "react-router-dom";
 import { useApi } from 'react-use-api';
 import { Container } from "reactstrap";
@@ -27,16 +28,22 @@ const NodesBySlug = (props?: RouteComponentProps) => {
 
   useEffect(useCallback(() => {
     setLoading(loading);
-    if (nodes.length > 0) document.title = nodes[0].title;
-  }, [loading, nodes, setLoading]), []);
+  }, [loading, setLoading]), []);
 
-  return (
+  return (<>
+    { nodes.length > 0
+      ? <Helmet>
+          <title>{ nodes[0].title }</title>
+          <meta name="description" content={ nodes[0].excerpt }/>
+          <link rel="canonical" href={ nodes[0].path } />
+        </Helmet>
+      : null }
     <Container>
       { nodes && nodes.map((node) => {
         return <NodeCard key={ `nodecard-${node.id}` } node={ node } />
       })}
     </Container>
-  )
+  </>)
 }
 
 export default NodesBySlug;

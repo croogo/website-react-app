@@ -69,6 +69,7 @@ export interface Post extends TJsonaModel {
   title: string;
   slug: string;
   body: string;
+  excerpt: string;
   publishStart: string;
   path: string;
   user?: User;

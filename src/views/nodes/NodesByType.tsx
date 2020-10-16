@@ -1,5 +1,6 @@
 import qs from 'qs';
 import React, { FunctionComponent, useCallback, useEffect } from "react";
+import { Helmet } from 'react-helmet';
 import { useLocation, useParams } from "react-router-dom";
 import { useApi } from 'react-use-api';
 import { Container } from "reactstrap";
@@ -44,12 +45,15 @@ const NodesByType: FunctionComponent = props => {
 
   useEffect(useCallback(() => {
     setLoading(nodesLoading || typesLoading);
-    if (types[0]) {
-      document.title = config.site.title + ' | ' + types[0].title;
-    }
-  }, [types, nodesLoading, typesLoading, setLoading]), []);
+  }, [nodesLoading, typesLoading, setLoading]), []);
 
-  return (
+  return (<>
+    { types.length > 0
+      ? <Helmet>
+          <title>{ types[0].title } | { config.site.title }</title>
+        </Helmet>
+      : null
+    }
     <Container>
       { types && types.length > 0
         ? <h1>{ types[0].title }
@@ -65,7 +69,7 @@ const NodesByType: FunctionComponent = props => {
         : isLoading ? null : <>No { type } entry found </>
       }
     </Container>
-  )
+  </>)
 }
 
 export default NodesByType;

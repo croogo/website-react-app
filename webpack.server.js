@@ -6,7 +6,10 @@ module.exports = {
 
   target: 'node',
 
-  externals: [nodeExternals()],
+  externals: [
+    nodeExternals(),
+    "react-helmet",
+  ],
 
   output: {
     path: path.resolve('server-build'),

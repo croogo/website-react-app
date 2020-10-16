@@ -1,5 +1,6 @@
 import qs from 'qs';
 import React, { FunctionComponent, useCallback, useEffect } from "react";
+import { Helmet } from 'react-helmet';
 import { useLocation, useParams } from "react-router-dom";
 import { useApi } from 'react-use-api';
 import { Container } from "reactstrap";
@@ -37,20 +38,22 @@ const NodesByTerm: FunctionComponent = props => {
   const [termsPayload, { loading: termsLoading}] = useApi({
     url: '/terms',
     params: {
-    slug: term,
+      slug: term,
     },
   });
 
   const terms: Term[] = termsPayload ? dataFormatter.deserialize(termsPayload) as Term[]: [];
 
   useEffect(useCallback(() => {
-    if (terms.length > 0) {
-      document.title = config.site.title + ' | ' + terms[0].title;
-    }
     setLoading(nodesLoading || termsLoading);
-  }, [nodesLoading, terms, termsLoading, setLoading]), []);
+  }, [nodesLoading, termsLoading, setLoading]), []);
 
-  return (
+  return (<>
+    { terms.length > 0
+      ? <Helmet>
+          <title>{ terms[0].title } | { config.site.title }</title>
+        </Helmet>
+      : null }
     <Container>
       { terms && terms.length > 0
         ? <h1>{ terms[0].title }
@@ -68,7 +71,7 @@ const NodesByTerm: FunctionComponent = props => {
         : isLoading ? null : <>No { type } with { term } entry found </>
       }
     </Container>
-  )
+  </>)
 }
 
 export default NodesByTerm;

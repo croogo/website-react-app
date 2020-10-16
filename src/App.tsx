@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { Helmet } from 'react-helmet';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import Analytics from 'react-router-ga';
 import './App.css';
@@ -9,13 +10,16 @@ import DefaultLayout from './layouts/DefaultLayout';
 import { routes } from "./routes";
 
 const AppProviders: FunctionComponent = props => {
-  return (
+  return (<>
+    <Helmet>
+      <title>{config.site.title}</title>
+    </Helmet>
     <UiStateProvider>
       <Analytics id={config.ga.propertyId}>
         {props.children}
       </Analytics>
     </UiStateProvider>
-  )
+  </>)
 }
 
 function App() {
