@@ -1,38 +1,33 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useApi } from 'react-use-api';
 import {
   Button,
   Container
 } from "reactstrap";
-import { dataFormatter, useApi } from '../context/api';
+import { dataFormatter } from '../context/api';
 import { useUi } from '../context/ui';
 import { MenuItem } from '../types/entities';
 
 const Footer = () => {
-  const { Links } = useApi();
   const { setLoading } = useUi();
   const year = (new Date()).getFullYear();
-  const [links, setLinks] = useState([] as MenuItem[]);
+
+  const [linksPayload, {loading: linksLoading}] = useApi({
+    url: '/links',
+    params: {
+      menuAlias: 'footer',
+    },
+  });
+
+  const links: MenuItem[] = linksPayload ? dataFormatter.deserialize(linksPayload) as MenuItem[]: [];
 
   useEffect(useCallback(() => {
-    setLoading(true);
-    Links
-      .index({
-        params: {
-          menuAlias: 'footer',
-        },
-      })
-      .then(res => res.data)
-      .then(json => {
-        const links = dataFormatter.deserialize(json) as MenuItem[];
-        setLinks(links);
-      })
-      .catch(e => console.error)
-      .finally(() => setLoading(false));
-  }, [Links, setLoading]), []);
+    setLoading(linksLoading);
+  }, [setLoading, linksLoading]), []);
 
   return (
-    <footer className="footer-1 bg-light text-dark">
+    <footer className="footer-1 bg-light text-dark" style={{ position: "inherit"}}>
       <Container>
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
           <div className="links">

@@ -1,41 +1,34 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { RouteComponentProps, useParams } from "react-router-dom";
+import { useApi } from 'react-use-api';
 import { Container } from "reactstrap";
 import NodeCard from "../../components/NodeCard";
-import { dataFormatter, useApi } from "../../context/api";
+import { dataFormatter } from "../../context/api";
 import { useUi } from '../../context/ui';
 import { NodesSearchParams, Post } from "../../types/entities";
 
 const NodesBySlug = (props?: RouteComponentProps) => {
   const { setLoading } = useUi();
   const { type, slug } = useParams<NodesSearchParams>();
-  const { Nodes } = useApi();
-  const [ nodes, setNodes ] = useState([] as Post[]);
   const pageSlug = props?.match.path.slice(1); // fallback path
 
+  const [data, { loading }] = useApi({
+    url: '/nodes',
+    params: {
+      type: type ?? 'page',
+      slug: slug ?? pageSlug,
+      limit: 1,
+      sort: '-publish_start',
+      include: 'users,types,taxonomies.terms,taxonomies.vocabularies',
+    }
+  }, { useCache: true })
+
+  const nodes: Post[] = data ? dataFormatter.deserialize(data) as Post[] : [];
+
   useEffect(useCallback(() => {
-    setLoading(true);
-    Nodes
-      .index({
-        params: {
-          type: type ?? 'page',
-          slug: slug ?? pageSlug,
-          limit: 1,
-          sort: '-publish_start',
-          include: 'users,types,taxonomies.terms,taxonomies.vocabularies',
-        },
-      })
-      .then(res => res.data)
-      .then(json => {
-        const nodes = dataFormatter.deserialize(json) as Post[];
-        document.title = nodes[0].title;
-        setNodes(nodes);
-      })
-      .catch(e => console.error)
-      .finally(() => setLoading(false));
-
-  }, [Nodes, type, slug, setNodes, setLoading, pageSlug]), [type, slug, pageSlug]);
-
+    setLoading(loading);
+    if (nodes.length > 0) document.title = nodes[0].title;
+  }, [loading, nodes, setLoading]), []);
 
   return (
     <Container>

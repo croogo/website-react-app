@@ -1,11 +1,12 @@
 import qs from 'qs';
-import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
+import React, { FunctionComponent, useCallback, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import { useApi } from 'react-use-api';
 import { Container } from "reactstrap";
 import NodeCard from "../../components/NodeCard";
 import PaginationLinks from "../../components/PaginationLinks";
 import config from '../../config';
-import { dataFormatter, useApi } from "../../context/api";
+import { dataFormatter } from "../../context/api";
 import { useUi } from '../../context/ui';
 import { ApiMeta, NodesSearchParams, Post, Term } from "../../types/entities";
 
@@ -15,10 +16,6 @@ const NodesByTerm: FunctionComponent = props => {
   const location = useLocation()
   const queryString = qs.parse(location.search.slice(1))
   const { page } = queryString;
-  const { Nodes, Terms } = useApi();
-  const [ nodes, setNodes ] = useState([] as Post[]);
-  const [ nodesMeta, setNodesMeta ] = useState({} as ApiMeta);
-  const [ terms, setTerms ] = useState({} as Term[]);
 
   const params = {
     page,
@@ -29,39 +26,29 @@ const NodesByTerm: FunctionComponent = props => {
     include: 'users,types,taxonomies.terms,taxonomies.vocabularies',
   }
 
+  const [nodesPayload, { loading: nodesLoading}] = useApi({
+    url: '/nodes',
+    params
+  });
+
+  const nodes: Post[] = nodesPayload ? dataFormatter.deserialize(nodesPayload) as Post[]: [];
+  const nodesMeta: ApiMeta | undefined = nodesPayload?.meta;
+
+  const [termsPayload, { loading: termsLoading}] = useApi({
+    url: '/terms',
+    params: {
+    slug: term,
+    },
+  });
+
+  const terms: Term[] = termsPayload ? dataFormatter.deserialize(termsPayload) as Term[]: [];
+
   useEffect(useCallback(() => {
-    setLoading(true);
-    const p1 = Nodes
-      .index({
-        params,
-      })
-      .then(res => res.data)
-      .then(data => {
-        const nodes = dataFormatter.deserialize(data) as Post[];
-        setNodesMeta(data.meta);
-        setNodes(nodes)
-      });
-
-    const p2 = Terms
-      .index({
-        params: {
-          slug: term,
-        },
-      })
-      .then(res => res.data)
-      .then(data => {
-        const terms = dataFormatter.deserialize(data) as Term[];
-        if (terms.length > 0) {
-          document.title = config.site.title + ' | ' + terms[0].title;
-        }
-        setTerms(terms)
-      });
-
-    Promise.all([p1, p2])
-      .catch(e => console.error)
-      .finally(() => setLoading(false));
-
-  }, [Nodes, Terms, term, params, setNodes, setTerms, setLoading]), [ location ]);
+    if (terms.length > 0) {
+      document.title = config.site.title + ' | ' + terms[0].title;
+    }
+    setLoading(nodesLoading || termsLoading);
+  }, [nodesLoading, terms, termsLoading, setLoading]), []);
 
   return (
     <Container>

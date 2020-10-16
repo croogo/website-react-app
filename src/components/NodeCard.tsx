@@ -45,7 +45,7 @@ const NodeCard = (props: NodeCardProps) => {
   const terms = node?.taxonomies?.filter(t => t.term)?.map(taxonomy => {
     const to = `/${node.nodeType.alias}/term/${taxonomy.term.slug}`;
     return (
-      <Link to={to} className='mx-1 badge badge-success no-decoration'>
+      <Link key={`nc-link-${node.id}-${taxonomy?.term.slug }`} to={to} className='mx-1 badge badge-success no-decoration'>
         { taxonomy?.term.title}
       </Link>
     );

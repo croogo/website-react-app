@@ -1,35 +1,30 @@
 import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
-import bootstrap from '../assets/img/bootstrap.png';
-import cakephp from '../assets/img/cakephp_small.png';
-import php from '../assets/img/php.png';
-import sql from '../assets/img/sql.png';
 import Feature from './Feature';
-
 
 const LandingFeatures = () => {
   let fProps = [
     {
       color: "primary",
       title: "Supports PHP 7.4",
-      imgPath: php,
+      imgPath: '/img/php.png',
       text: "Freedom to run on almost any server!"
     },
     {
       color: "primary",
-      imgPath: sql,
+      imgPath: '/img/sql.png',
       title: "Databases",
       text: "Compatible with both MySQL and PostgreSQL"
     },
     {
       color: "primary",
       title: "CakePHP",
-      imgPath: cakephp,
+      imgPath: '/img/cakephp_small.png',
       text: 'Powered by the very popular framework.',
     },
     {
       color: "primary",
-      imgPath: bootstrap,
+      imgPath: '/img/bootstrap.png',
       title: "Works with Bootstrap",
       text: "Built with Bootstrap for responsive admini UI.",
     },]

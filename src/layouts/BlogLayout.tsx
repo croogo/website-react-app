@@ -7,11 +7,15 @@ import SiteNavbar from '../components/SiteNavbar';
 import Footer from "./../components/Footer";
 
 const BlogLayout: FunctionComponent = (props) => {
-
   const location = useLocation();
   useEffect(() => {
-    document.querySelector('.card-title')?.scrollIntoView({ behavior: "smooth", block: 'nearest' });
-  }, [location]);
+    setTimeout(() => {
+      const cards = document.querySelectorAll('.card');
+      if (cards.length > 0) {
+        cards[0].scrollIntoView({ behavior: "smooth", block: 'start' });
+      }
+    }, 250);
+  }, [location.pathname, location.search]);
 
   return (<>
     <NProgressBar />
