@@ -1,14 +1,12 @@
 import React from 'react';
 import { Col, Container, Form, Row } from 'reactstrap';
-import admin from '../assets/img/admin.png';
-import plugin from '../assets/img/plugin.png';
 import Slideshow from './Slideshow';
 
 const LandingHeader = () => {
 
   const slideImages = [
-    admin,
-    plugin,
+    '/img/admin.png',
+    '/img/plugin.png',
   ];
 
   return (
