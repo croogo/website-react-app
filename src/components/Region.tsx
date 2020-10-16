@@ -1,7 +1,8 @@
 import parse, { attributesToProps, HTMLReactParserOptions } from 'html-react-parser';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { dataFormatter, useApi } from '../context/api';
+import { useApi } from 'react-use-api';
+import { dataFormatter } from '../context/api';
 import { useUi } from '../context/ui';
 import { Block } from '../types/entities';
 
@@ -11,27 +12,25 @@ declare interface RegionProps {
 
 const Region = (props: RegionProps) => {
   const { name } = props;
-  const { Blocks } = useApi();
   const { setLoading } = useUi();
-  const [blocks, setBlocks] = useState([] as Block[]);
   const location = useLocation();
 
+  const [blocksPayload, {loading: blocksLoading}, request] = useApi({
+    url: '/blocks',
+    params: {
+      regionAlias: name,
+    },
+  });
+
+  const blocks: Block[] = blocksPayload ? dataFormatter.deserialize(blocksPayload) as Block[] : [];
+
+  useEffect(() => {
+    setLoading(blocksLoading);
+  });
+
   useEffect(useCallback(() => {
-    setLoading(true);
-    Blocks
-      .index({
-        params: {
-          regionAlias: name,
-        }
-      })
-      .then(res => res.data)
-      .then(json => {
-        const blocks = dataFormatter.deserialize(json) as Block[];
-        setBlocks(blocks);
-      })
-      .catch(e => console.error)
-      .finally(() => setLoading(false));
-  }, [Blocks, name, setBlocks, setLoading]), [location])
+    request();
+  }, [request]), [location.pathname]);
 
   return (
     <div className='mt-5'>
