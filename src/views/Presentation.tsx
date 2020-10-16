@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from "react";
-import LandingFeatures from "../components/LandingFeatures";
-import LandingHeader from "../components/LandingHeader";
+import LandingFeatures from 'components/LandingFeatures';
+import LandingHeader from 'components/LandingHeader';
+import React, { FunctionComponent } from 'react';
 
 const Presentation: FunctionComponent = (props) => {
   return (

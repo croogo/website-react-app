@@ -1,15 +1,15 @@
+import App from 'App';
+import 'assets/scss/demo.scss';
+import 'assets/scss/lazy.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import { makeApiContext, makeAxios } from 'context/api';
+import 'fontawesome';
+import 'index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ApiProvider, loadApiCache } from 'react-use-api';
-import App from './App';
-import './assets/scss/demo.scss';
-import './assets/scss/lazy.scss';
-import './fontawesome';
-import './index.css';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from 'serviceWorker';
 
 const axios = makeAxios();
 const apiContext = makeApiContext(axios);

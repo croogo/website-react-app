@@ -1,5 +1,5 @@
+import { useUi } from 'context/ui';
 import React, { useEffect } from 'react';
-import { useUi } from '../context/ui';
 import './NProgressBar.css';
 const NProgress = require('nprogress/nprogress')
 

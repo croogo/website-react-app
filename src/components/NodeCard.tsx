@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardBody, CardFooter, CardImg } from 'reactstrap';
-import { LinkedAssets, Post } from '../types/entities';
+import { LinkedAssets, Post } from 'types/entities';
 
 declare interface NodeCardProps {
   node: Post;

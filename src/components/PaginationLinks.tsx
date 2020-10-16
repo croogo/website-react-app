@@ -2,7 +2,7 @@ import qs from 'qs';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-import { ApiMeta } from '../types/entities';
+import { ApiMeta } from 'types/entities';
 
 const PaginationLinks = (props: ApiMeta) => {
   const { location, params, meta } = props;

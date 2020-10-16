@@ -1,6 +1,6 @@
 import Axios, { AxiosInstance } from 'axios';
+import config from 'config';
 import Jsona, { SwitchCaseJsonMapper, SwitchCaseModelMapper } from 'jsona';
-import config from '../config';
 
 export const dataFormatter = new Jsona({
   modelPropertiesMapper: new SwitchCaseModelMapper(),

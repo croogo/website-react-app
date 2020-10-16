@@ -17,7 +17,11 @@ module.exports = {
   },
 
   resolve: {
-    extensions: [ '.tsx', '.ts', '.jsx', '.js'],
+    modules: [
+      'src',
+      'node_modules',
+    ],
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
   },
 
   module: {
@@ -31,7 +35,7 @@ module.exports = {
         exclude: [/node_modules/],
         loader: 'ts-loader',
         options: {
-            configFile : 'tsconfig-ssr.json'
+          configFile: 'tsconfig-ssr.json'
         }
       },
       {

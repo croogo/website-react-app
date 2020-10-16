@@ -1,13 +1,13 @@
+import 'App.css';
+import NotFound from 'components/NotFound';
+import config from 'config';
+import { routes } from 'config/routes';
+import { UiStateProvider } from 'context/ui';
+import DefaultLayout from 'layouts/DefaultLayout';
 import React, { FunctionComponent } from 'react';
 import { Helmet } from 'react-helmet';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import Analytics from 'react-router-ga';
-import './App.css';
-import NotFound from './components/NotFound';
-import config from './config';
-import { UiStateProvider } from './context/ui';
-import DefaultLayout from './layouts/DefaultLayout';
-import { routes } from "./routes";
 
 const AppProviders: FunctionComponent = props => {
   return (<>

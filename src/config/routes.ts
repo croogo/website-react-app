@@ -1,9 +1,9 @@
-import BlogLayout from "./layouts/BlogLayout";
-import DefaultLayout from "./layouts/DefaultLayout";
-import NodesBySlug from "./views/nodes/NodesBySlug";
-import NodesByTerm from "./views/nodes/NodesByTerm";
-import NodesByType from "./views/nodes/NodesByType";
-import Presentation from "./views/Presentation";
+import BlogLayout from "layouts/BlogLayout";
+import DefaultLayout from "layouts/DefaultLayout";
+import NodesBySlug from "views/nodes/NodesBySlug";
+import NodesByTerm from "views/nodes/NodesByTerm";
+import NodesByType from "views/nodes/NodesByType";
+import Presentation from "views/Presentation";
 
 let staticRoutes = [
   {

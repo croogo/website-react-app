@@ -1,10 +1,10 @@
+import { dataFormatter } from 'context/api';
+import { useUi } from 'context/ui';
 import parse, { attributesToProps, HTMLReactParserOptions } from 'html-react-parser';
 import React, { useCallback, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useApi } from 'react-use-api';
-import { dataFormatter } from '../context/api';
-import { useUi } from '../context/ui';
-import { Block } from '../types/entities';
+import { Block } from 'types/entities';
 
 declare interface RegionProps {
   name: string,

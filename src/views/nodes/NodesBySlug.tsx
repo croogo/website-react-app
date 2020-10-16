@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect } from "react";
-import { RouteComponentProps, useParams } from "react-router-dom";
+import NodeCard, { getPoster } from 'components/NodeCard';
+import { OpenGraph } from 'components/OpenGraph';
+import { dataFormatter } from "context/api";
+import { useUi } from 'context/ui';
+import React, { useCallback, useEffect } from 'react';
+import { RouteComponentProps, useParams } from 'react-router-dom';
 import { useApi } from 'react-use-api';
-import { Container } from "reactstrap";
-import NodeCard, { getPoster } from "../../components/NodeCard";
-import { OpenGraph } from "../../components/OpenGraph";
-import { dataFormatter } from "../../context/api";
-import { useUi } from '../../context/ui';
-import { NodesSearchParams, Post } from "../../types/entities";
+import { Container } from 'reactstrap';
+import { NodesSearchParams, Post } from 'types/entities';
 
 const NodesBySlug = (props?: RouteComponentProps) => {
   const { setLoading } = useUi();

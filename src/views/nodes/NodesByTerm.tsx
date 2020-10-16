@@ -1,15 +1,15 @@
+import NodeCard from 'components/NodeCard';
+import { OpenGraph } from 'components/OpenGraph';
+import PaginationLinks from "components/PaginationLinks";
+import config from 'config';
+import { dataFormatter } from "context/api";
+import { useUi } from 'context/ui';
 import qs from 'qs';
-import React, { FunctionComponent, useCallback, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import React, { FunctionComponent, useCallback, useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import { useApi } from 'react-use-api';
 import { Container } from "reactstrap";
-import NodeCard from "../../components/NodeCard";
-import { OpenGraph } from '../../components/OpenGraph';
-import PaginationLinks from "../../components/PaginationLinks";
-import config from '../../config';
-import { dataFormatter } from "../../context/api";
-import { useUi } from '../../context/ui';
-import { ApiMeta, NodesSearchParams, Post, Term } from "../../types/entities";
+import { ApiMeta, NodesSearchParams, Post, Term } from 'types/entities';
 
 const NodesByTerm: FunctionComponent = props => {
   const { isLoading, setLoading } = useUi();

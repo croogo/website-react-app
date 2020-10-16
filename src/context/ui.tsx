@@ -1,5 +1,5 @@
-import React, { createContext, FunctionComponent, useContext, useState } from "react";
-import { MenuItem } from "../types/entities";
+import React, { createContext, FunctionComponent, useContext, useState } from 'react';
+import { MenuItem } from "types/entities";
 
 export type MenuItemsMap = Map<string, MenuItem[]>;
 

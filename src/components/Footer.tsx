@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { dataFormatter } from 'context/api';
+import { useUi } from 'context/ui';
 import React, { useCallback, useEffect } from 'react';
 import { useApi } from 'react-use-api';
 import {
   Button,
   Container
 } from "reactstrap";
-import { dataFormatter } from '../context/api';
-import { useUi } from '../context/ui';
-import { MenuItem } from '../types/entities';
+import { MenuItem } from 'types/entities';
 
 const Footer = () => {
   const { setLoading } = useUi();
