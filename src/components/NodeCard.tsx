@@ -14,7 +14,7 @@ declare interface NodeCardProps {
  *
  * @param post Post
  */
-function getPoster(post: Post) {
+export function getPoster(post: Post) {
 
   const getAsset = (linkedAssets: LinkedAssets, name: string) => {
     if (!Array.isArray(linkedAssets) && typeof linkedAssets[name] !== undefined) {
@@ -34,7 +34,7 @@ function getPoster(post: Post) {
 
   if (posterList && typeof(posterList[0]) !== undefined) {
     if (posterList && posterList.length > 0) {
-      return getAsset(posterList[0].term.linkedAssets, 'DefaultAsset');
+      return getAsset(posterList[0].term.linkedAssets, 'FeaturedImage');
     }
   }
 }

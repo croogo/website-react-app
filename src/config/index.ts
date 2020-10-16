@@ -16,6 +16,7 @@ export default {
   site: {
     name: 'Croogo',
     title: 'Croogo - The CakePHP powered Content Management System',
+    baseUrl: process.env.REACT_APP_API_BASEURL,
   },
   ga: {
     propertyId: process.env.REACT_APP_GA_PROPERTY_ID,

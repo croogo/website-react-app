@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from "react";
-import { Helmet } from 'react-helmet';
 import { RouteComponentProps, useParams } from "react-router-dom";
 import { useApi } from 'react-use-api';
 import { Container } from "reactstrap";
-import NodeCard from "../../components/NodeCard";
+import NodeCard, { getPoster } from "../../components/NodeCard";
+import { OpenGraph } from "../../components/OpenGraph";
 import { dataFormatter } from "../../context/api";
 import { useUi } from '../../context/ui';
 import { NodesSearchParams, Post } from "../../types/entities";
@@ -25,22 +25,28 @@ const NodesBySlug = (props?: RouteComponentProps) => {
   }, { useCache: true })
 
   const nodes: Post[] = data ? dataFormatter.deserialize(data) as Post[] : [];
+  const poster = nodes.length > 0 ? getPoster(nodes[0]) : undefined;
 
   useEffect(useCallback(() => {
     setLoading(loading);
   }, [loading, setLoading]), []);
 
   return (<>
-    { nodes.length > 0
-      ? <Helmet>
-          <title>{ nodes[0].title }</title>
-          <meta name="description" content={ nodes[0].excerpt }/>
-          <link rel="canonical" href={ nodes[0].path } />
-        </Helmet>
-      : null }
+    { nodes.length > 0 ?
+      <OpenGraph
+        title={nodes[0].title}
+        ogTitle={nodes[0].title}
+        ogDescription={nodes[0].excerpt}
+        ogUrl={nodes[0].path}
+        metaDescription={nodes[0].excerpt}
+        linkCanonical={nodes[0].path}
+        ogImage={ poster }
+        twitterCard={ poster ? 'summary_large_image' : 'summary' }
+      />
+      : null}
     <Container>
-      { nodes && nodes.map((node) => {
-        return <NodeCard key={ `nodecard-${node.id}` } node={ node } />
+      {nodes && nodes.map((node) => {
+        return <NodeCard key={`nodecard-${node.id}`} node={node} />
       })}
     </Container>
   </>)

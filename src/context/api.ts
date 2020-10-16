@@ -11,7 +11,7 @@ export const makeApiContext = (axios: AxiosInstance) => {
   return {
     settings: {
       axios: axios,
-      debug: true,
+      debug: process.env.NODE_ENV === 'development',
     },
   }
 }
