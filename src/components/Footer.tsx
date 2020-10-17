@@ -32,7 +32,7 @@ const Footer = (props: FooterProps) => {
   }, [setLoading, linksLoading]), []);
 
   return (
-    <footer className="footer-1 bg-light text-dark" style={{ position: "inherit"}}>
+    <footer className="footer-1 bg-light text-dark">
       <Container>
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
           <div className="links">
