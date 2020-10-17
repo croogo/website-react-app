@@ -34,7 +34,7 @@ export function getPoster(post: Post): string | undefined {
     return !Array.isArray(taxonomy.term?.linkedAssets);
   });
 
-  if (posterList && typeof(posterList[0]) !== undefined) {
+  if (posterList && typeof (posterList[0]) !== undefined) {
     if (posterList && posterList.length > 0) {
       return getAsset(posterList[0].term.linkedAssets, 'FeaturedImage');
     }
@@ -47,7 +47,7 @@ const NodeCard = (props: NodeCardProps) => {
   const terms = node?.taxonomies?.filter(t => t.term)?.map(taxonomy => {
     const to = `/${node.nodeType.alias}/term/${taxonomy.term.slug}`;
     return (
-      <Link key={`nc-link-${node.id}-${taxonomy?.term.slug }`} to={to} className='mx-1 badge badge-success no-decoration'>
+      <Link key={`nc-link-${node.id}-${taxonomy?.term.slug}`} to={to} className='mx-1 badge badge-success no-decoration'>
         { taxonomy?.term.title}
       </Link>
     );
@@ -58,13 +58,14 @@ const NodeCard = (props: NodeCardProps) => {
   return (
     <Card className='mb-5 no-hover'>
       { poster && !isIndex
-        ? <CardImg className='card-img-top' src={ poster } />
-        : null }
+        ? <CardImg className='card-img-top' src={poster} />
+        : null}
 
       <CardBody>
-        <h4 className={(isIndex ? '' : 'display-4 ') + 'card-title'}>
-          {node.title}
-        </h4>
+        {isIndex
+          ? <h2 className={'card-title'}>{node.title}</h2>
+          : <h1 className={'card-title'}>{node.title}</h1>
+        }
 
         <h6 className="card-subtitle text-muted">
           {node.user
