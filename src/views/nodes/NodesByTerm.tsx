@@ -49,6 +49,8 @@ export const NodesByTerm = (props: NodesByTermProps) => {
 
   const terms: Term[] = termsPayload ? dataFormatter.deserialize(termsPayload) as Term[] : [];
 
+  const loading = isLoading || nodesLoading || termsLoading;
+
   useEffect(useCallback(() => {
     setLoading(nodesLoading || termsLoading);
   }, [nodesLoading, termsLoading, setLoading]), []);
@@ -71,7 +73,7 @@ export const NodesByTerm = (props: NodesByTermProps) => {
 
       {nodes && nodes.length > 0
         ? <PaginationLinks location={location} params={params} meta={nodesMeta} />
-        : isLoading ? null : <>No {type} with {term} entry found </>
+        : loading ? null : <>No {type} with {term} entry found </>
       }
     </Container>
   </>)

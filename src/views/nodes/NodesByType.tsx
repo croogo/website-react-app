@@ -48,6 +48,8 @@ const NodesByType = (props: NodesByTypeProps) => {
 
   const types: Type[] = typesPayload ? dataFormatter.deserialize(typesPayload) as Type[] : [];
 
+  const loading = isLoading || nodesLoading || typesLoading;
+
   useEffect(useCallback(() => {
     setLoading(nodesLoading || typesLoading);
   }, [nodesLoading, typesLoading, setLoading]), []);
@@ -71,7 +73,7 @@ const NodesByType = (props: NodesByTypeProps) => {
 
       {nodes && nodes.length > 0
         ? <PaginationLinks location={location} params={params} meta={nodesMeta} />
-        : isLoading ? null : <>No {type} entry found </>
+        : loading ? null : <>No {type} entry found </>
       }
     </Container>
   </>)
