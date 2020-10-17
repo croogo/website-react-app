@@ -5,13 +5,18 @@ import config from 'config';
 import { dataFormatter } from "context/api";
 import { useUi } from 'context/ui';
 import qs from 'qs';
-import React, { FunctionComponent, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useApi } from 'react-use-api';
 import { Container } from "reactstrap";
 import { ApiMeta, NodesSearchParams, Post, Term } from 'types/entities';
 
-const NodesByTerm: FunctionComponent = props => {
+export interface NodesByTermProps {
+  useCache: boolean;
+}
+
+export const NodesByTerm = (props: NodesByTermProps) => {
+  const { useCache } = props;
   const { isLoading, setLoading } = useUi();
   const { type, term } = useParams<NodesSearchParams>();
   const location = useLocation()
@@ -30,7 +35,7 @@ const NodesByTerm: FunctionComponent = props => {
   const [nodesPayload, { loading: nodesLoading }] = useApi({
     url: '/nodes',
     params
-  });
+  }, { useCache });
 
   const nodes: Post[] = nodesPayload ? dataFormatter.deserialize(nodesPayload) as Post[] : [];
   const nodesMeta: ApiMeta | undefined = nodesPayload?.meta;
@@ -40,7 +45,7 @@ const NodesByTerm: FunctionComponent = props => {
     params: {
       slug: term,
     },
-  });
+  }, { useCache });
 
   const terms: Term[] = termsPayload ? dataFormatter.deserialize(termsPayload) as Term[] : [];
 

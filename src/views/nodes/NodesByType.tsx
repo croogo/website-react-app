@@ -5,13 +5,18 @@ import config from 'config';
 import { dataFormatter } from 'context/api';
 import { useUi } from 'context/ui';
 import qs from 'qs';
-import React, { FunctionComponent, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useApi } from 'react-use-api';
 import { Container } from 'reactstrap';
 import { ApiMeta, NodesSearchParams, Post, Type } from 'types/entities';
 
-const NodesByType: FunctionComponent = props => {
+export interface NodesByTypeProps {
+  useCache: boolean;
+}
+
+const NodesByType = (props: NodesByTypeProps) => {
+  const { useCache } = props;
   const { isLoading, setLoading } = useUi();
   const { type } = useParams<NodesSearchParams>();
   const location = useLocation()
@@ -29,7 +34,7 @@ const NodesByType: FunctionComponent = props => {
   const [nodesPayload, { loading: nodesLoading }] = useApi({
     url: '/nodes',
     params,
-  });
+  }, { useCache });
 
   const nodes: Post[] = nodesPayload ? dataFormatter.deserialize(nodesPayload) as Post[] : [];
   const nodesMeta: ApiMeta | undefined = nodesPayload?.meta;
@@ -39,7 +44,7 @@ const NodesByType: FunctionComponent = props => {
     params: {
       alias: type,
     }
-  })
+  }, { useCache })
 
   const types: Type[] = typesPayload ? dataFormatter.deserialize(typesPayload) as Type[] : [];
 

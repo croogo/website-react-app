@@ -9,7 +9,12 @@ import {
 } from "reactstrap";
 import { MenuItem } from 'types/entities';
 
-const Footer = () => {
+export interface FooterProps {
+  useCache: boolean;
+}
+
+const Footer = (props: FooterProps) => {
+  const { useCache } = props;
   const { setLoading } = useUi();
   const year = (new Date()).getFullYear();
 
@@ -18,7 +23,7 @@ const Footer = () => {
     params: {
       menuAlias: 'footer',
     },
-  });
+  }, { useCache });
 
   const links: MenuItem[] = linksPayload ? dataFormatter.deserialize(linksPayload) as MenuItem[]: [];
 
@@ -62,5 +67,9 @@ const Footer = () => {
     </footer>
   );
 };
+
+Footer.defaultProps = {
+  useCache: true,
+}
 
 export default Footer;

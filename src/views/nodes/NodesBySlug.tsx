@@ -8,10 +8,15 @@ import { useApi } from 'react-use-api';
 import { Container } from 'reactstrap';
 import { NodesSearchParams, Post } from 'types/entities';
 
-const NodesBySlug = (props?: RouteComponentProps) => {
+declare interface NodesBySlugProps extends RouteComponentProps {
+  useCache: boolean;
+}
+
+const NodesBySlug = (props: NodesBySlugProps) => {
+  const { match, useCache } = props;
   const { setLoading } = useUi();
   const { type, slug } = useParams<NodesSearchParams>();
-  const pageSlug = props?.match.path.slice(1); // fallback path
+  const pageSlug = match.path.slice(1); // fallback path
 
   const [data, { loading }] = useApi({
     url: '/nodes',
@@ -22,7 +27,7 @@ const NodesBySlug = (props?: RouteComponentProps) => {
       sort: '-publish_start',
       include: 'users,types,taxonomies.terms,taxonomies.vocabularies',
     }
-  }, { useCache: true })
+  }, { useCache })
 
   const nodes: Post[] = data ? dataFormatter.deserialize(data) as Post[] : [];
   const poster = nodes.length > 0 ? getPoster(nodes[0]) : undefined;
@@ -50,6 +55,10 @@ const NodesBySlug = (props?: RouteComponentProps) => {
       })}
     </Container>
   </>)
+}
+
+NodesBySlug.defaultProps = {
+  useCache: true,
 }
 
 export default NodesBySlug;

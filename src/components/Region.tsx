@@ -7,20 +7,21 @@ import { useApi } from 'react-use-api';
 import { Block } from 'types/entities';
 
 declare interface RegionProps {
-  name: string,
+  name: string;
+  useCache: boolean;
 }
 
 const Region = (props: RegionProps) => {
-  const { name } = props;
+  const { name, useCache } = props;
   const { setLoading } = useUi();
   const location = useLocation();
 
-  const [blocksPayload, {loading: blocksLoading}, request] = useApi({
+  const [blocksPayload, { loading: blocksLoading }, request] = useApi({
     url: '/blocks',
     params: {
       regionAlias: name,
     },
-  });
+  }, { useCache });
 
   const blocks: Block[] = blocksPayload ? dataFormatter.deserialize(blocksPayload) as Block[] : [];
 
@@ -57,6 +58,10 @@ const Region = (props: RegionProps) => {
       })}
     </div>
   );
+}
+
+Region.defaultProps = {
+  useCache: true,
 }
 
 export default Region;

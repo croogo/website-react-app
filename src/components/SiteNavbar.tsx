@@ -12,22 +12,24 @@ const logo = '/img/logo_croogo.png';
 
 declare interface SiteNavbarProps {
   menuAlias: string;
+  useCache: boolean;
 }
 
 const SiteNavbar = (props: SiteNavbarProps) => {
+  const { menuAlias, useCache } = props;
   const { setLoading, menuItems, setMenuItems } = useUi();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const [linksPayload, {loading: linksLoading}] = useApi({
+  const [linksPayload, { loading: linksLoading }] = useApi({
     url: '/links',
     params: {
-      menuAlias: props.menuAlias,
+      menuAlias,
     },
-  });
+  }, { useCache });
 
-  const links: MenuItem[]|undefined = linksPayload
+  const links: MenuItem[] | undefined = linksPayload
     ? dataFormatter.deserialize(linksPayload) as MenuItem[]
     : menuItems.get(props.menuAlias);
 
@@ -73,6 +75,10 @@ const SiteNavbar = (props: SiteNavbarProps) => {
       </Container>
     </Navbar>
   );
+}
+
+SiteNavbar.defaultProps = {
+  useCache: true,
 }
 
 export default SiteNavbar;
