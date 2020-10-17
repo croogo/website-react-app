@@ -30,6 +30,25 @@ const PaginationLinks = (props: ApiMeta) => {
   const next = location.pathname + '?' + qs.stringify(nextParam);
   const last = location.pathname + '?' + qs.stringify(lastParam);
 
+  /** @param numberOfElements Number of elements */
+  const renderNumbers = (numberOfElements: number = 5) => {
+    const numbers = [];
+    for (let i = 1; i <= pageCount; i++) {
+      const newParams = Object.assign({}, params);
+      newParams.page = i;
+      const url = location.pathname + '?' + qs.stringify(newParams);
+      numbers.push(
+        <PaginationItem key={`page-${i}`} active={ i === current } >
+          <PaginationLink to={ url } tag={Link}>
+            { i }
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+    const start = Math.floor(current - numberOfElements / 2) > 0  ? Math.floor(current - numberOfElements / 2) : 0;
+    return numbers.slice(start, start + numberOfElements)
+  }
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
 
@@ -40,6 +59,7 @@ const PaginationLinks = (props: ApiMeta) => {
         <PaginationItem>
           <PaginationLink previous to={prev} tag={Link} />
         </PaginationItem>
+        {renderNumbers().map(el => el)}
         <PaginationItem>
           <PaginationLink next to={next} tag={Link} />
         </PaginationItem>
