@@ -27,12 +27,16 @@ const SiteNavbar = (props: SiteNavbarProps) => {
     },
   });
 
-  const links: MenuItem[] = linksPayload ? dataFormatter.deserialize(linksPayload) as any[]: [];
+  const links: MenuItem[]|undefined = linksPayload
+    ? dataFormatter.deserialize(linksPayload) as MenuItem[]
+    : menuItems.get(props.menuAlias);
 
   useEffect(useCallback(() => {
-    const newMenuItems = new Map(menuItems)
-    newMenuItems.set(props.menuAlias, links);
-    setMenuItems(newMenuItems);
+    if (links) {
+      const newMenuItems = new Map(menuItems)
+      newMenuItems.set(props.menuAlias, links);
+      setMenuItems(newMenuItems);
+    }
     setLoading(linksLoading);
   }, [links, linksLoading, menuItems, props.menuAlias, setMenuItems, setLoading]), [linksPayload]);
 
