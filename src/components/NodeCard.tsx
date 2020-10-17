@@ -1,3 +1,4 @@
+import config from 'config';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardBody, CardFooter, CardImg } from 'reactstrap';
@@ -14,11 +15,12 @@ declare interface NodeCardProps {
  *
  * @param post Post
  */
-export function getPoster(post: Post) {
+export function getPoster(post: Post): string | undefined {
 
   const getAsset = (linkedAssets: LinkedAssets, name: string) => {
-    if (!Array.isArray(linkedAssets) && typeof linkedAssets[name] !== undefined) {
-      return linkedAssets[name][0].path;
+    if (!Array.isArray(linkedAssets) && typeof linkedAssets[name][0] !== undefined) {
+      const path = linkedAssets[name][0].path;
+      return path.startsWith('/') ? config.site.baseUrl + path : path;
     }
   }
 
