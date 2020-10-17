@@ -56,12 +56,13 @@ const Footer = (props: FooterProps) => {
         </div>
         <div className="copyright text-center">
           <hr />
-          <p className="small">&copy; {year}, made with
-          <span className="text-danger">
+          <p className="small">
+            Version {process.env.REACT_APP_VERSION} &copy; {year}, made with
+            <span className="text-danger">
               {" "}<FontAwesomeIcon icon="heart" />{" "}
             </span>
-          by Croogo Development Team (based on <a rel='noopener noreferrer' target='_blank' href='https://bootstrapbay.com/theme/lazy-free-react-ui-kit-BD90DEB'>Lazy Kit UI Kit</a>)
-        </p>
+            by Croogo Development Team (based on <a rel='noopener noreferrer' target='_blank' href='https://bootstrapbay.com/theme/lazy-free-react-ui-kit-BD90DEB'>Lazy Kit UI Kit</a>)
+          </p>
         </div>
       </Container>
     </footer>
