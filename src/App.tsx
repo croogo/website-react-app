@@ -23,14 +23,17 @@ const AppProviders: FunctionComponent = props => {
 }
 
 function App() {
+  const base = '/:locale(en|id)?';
   return (
     <AppProviders>
       <Switch>
         {routes.map((route, index) => {
+          const pathWithBase = base + route.path;
+          const path = pathWithBase.endsWith('/') ? pathWithBase.substr(0, pathWithBase.length - 1) : pathWithBase;
           return (
             <Route
               key={index}
-              path={route.path}
+              path={path}
               exact={route.exact}
               component={(props: RouteComponentProps) => {
                 return (
