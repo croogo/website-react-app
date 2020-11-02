@@ -9,7 +9,7 @@ import ServerRenderer from './ServerRenderer';
 const PORT = process.env.PORT || 3006;
 const app = express();
 
-app.use(express.static('./build'));
+app.use(express.static('./build', { index: false }));
 
 app.get('/*', async (req: Request, res: Response) => {
   const context: StaticRouterContext = {};
