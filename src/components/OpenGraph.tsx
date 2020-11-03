@@ -8,6 +8,7 @@ declare interface OpenGraphProps {
   metaDescription?: string;
   ogDescription?: string;
   ogImage?: string;
+  ogLocale?: string;
   ogSiteName?: string;
   ogTitle?: string;
   ogType?: string;
@@ -24,6 +25,7 @@ export const OpenGraph = (props: OpenGraphProps) => {
     fbAppId,
     metaDescription,
     ogDescription,
+    ogLocale,
     ogTitle,
     ogType,
     ogSiteName,
@@ -55,6 +57,7 @@ export const OpenGraph = (props: OpenGraphProps) => {
       <meta property="og:type" content={ogType || 'website'} />
       { ogDescription ? <meta property="og:description" content={ogDescription}></meta> : null}
       { ogImage ? <meta property="og:image" content={ogImage} /> : null}
+      { ogLocale ? <meta property="og:locale" content={ogLocale} /> : null}
       { ogUrl ? <meta property="og:url" content={ogUrl} /> : null}
       { ogVideo ? <meta property="og:video" content={ogVideo} /> : null}
       { title ? <title>{title}</title> : null}

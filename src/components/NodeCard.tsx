@@ -1,6 +1,6 @@
 import config from 'config';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-i18n';
 import { Card, CardBody, CardFooter, CardImg } from 'reactstrap';
 import { LinkedAssets, Post } from 'types/entities';
 

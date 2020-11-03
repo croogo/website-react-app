@@ -17,10 +17,12 @@ const NodesBySlug = (props: NodesBySlugProps) => {
   const { setLoading } = useUi();
   const { type, slug } = useParams<NodesSearchParams>();
   const pageSlug = match.path.slice(1); // fallback path
+  const locale = (match.params as any)?.locale;
 
   const [data, { loading }] = useApi({
     url: '/nodes',
     params: {
+      locale,
       type: type ?? 'page',
       slug: slug ?? pageSlug,
       limit: 1,
@@ -42,6 +44,7 @@ const NodesBySlug = (props: NodesBySlugProps) => {
         title={nodes[0].title}
         ogTitle={nodes[0].title}
         ogDescription={nodes[0].excerpt}
+        ogLocale={locale}
         ogUrl={nodes[0].path}
         metaDescription={nodes[0].excerpt}
         linkCanonical={nodes[0].path}
