@@ -62,7 +62,7 @@ const SiteNavbar = (props: SiteNavbarProps) => {
                 <NavItem key={`nav-item-${link.id}`} className='mx-2'>
                   { link.path.startsWith('http')
                     ? <NavLink href={link.path} className={link.class} target={link.target} rel={link.rel}>{link.title}</NavLink>
-                    : <NavLink to={link.path} tag={RNavLink}>{link.title}</NavLink>
+                    : <NavLink to={link.path} tag={RNavLink} ignoreLocale>{link.title}</NavLink>
                   }
                 </NavItem>
               ))
