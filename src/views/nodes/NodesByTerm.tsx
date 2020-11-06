@@ -6,24 +6,26 @@ import { dataFormatter } from "context/api";
 import { useUi } from 'context/ui';
 import qs from 'qs';
 import React, { useCallback, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { RouteComponentProps, useLocation, useParams } from 'react-router-dom';
 import { useApi } from 'react-use-api';
 import { Container } from "reactstrap";
 import { ApiMeta, NodesSearchParams, Post, Term } from 'types/entities';
 
-export interface NodesByTermProps {
+export interface NodesByTermProps extends RouteComponentProps {
   useCache: boolean;
 }
 
 export const NodesByTerm = (props: NodesByTermProps) => {
-  const { useCache } = props;
+  const { match, useCache } = props;
   const { isLoading, setLoading } = useUi();
   const { type, term } = useParams<NodesSearchParams>();
   const location = useLocation()
   const queryString = qs.parse(location.search.slice(1))
   const { page } = queryString;
+  const locale = (match.params as any)?.locale;
 
   const params = {
+    locale,
     page,
     type,
     term,
@@ -77,6 +79,10 @@ export const NodesByTerm = (props: NodesByTermProps) => {
       }
     </Container>
   </>)
+}
+
+NodesByTerm.defaultProps = {
+  useCache: true,
 }
 
 export default NodesByTerm;

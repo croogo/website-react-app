@@ -2,7 +2,7 @@ import { dataFormatter } from 'context/api';
 import { useUi } from 'context/ui';
 import parse, { attributesToProps, HTMLReactParserOptions } from 'html-react-parser';
 import React, { useCallback, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useApi } from 'react-use-api';
 import { Block } from 'types/entities';
 
@@ -15,10 +15,12 @@ const Region = (props: RegionProps) => {
   const { name, useCache } = props;
   const { setLoading } = useUi();
   const location = useLocation();
+  const { locale } = useParams<any>();
 
   const [blocksPayload, { loading: blocksLoading }, request] = useApi({
     url: '/blocks',
     params: {
+      locale,
       regionAlias: name,
     },
   }, { useCache });

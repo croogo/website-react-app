@@ -3,7 +3,8 @@ import config from 'config';
 import { dataFormatter } from 'context/api';
 import { useUi } from 'context/ui';
 import React, { useCallback, useEffect, useState } from 'react';
-import { NavLink as RNavLink } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { NavLink as RNavLink } from 'react-router-i18n';
 import { useApi } from 'react-use-api';
 import { Button, Collapse, Container, Nav, Navbar, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { MenuItem } from 'types/entities';
@@ -19,12 +20,15 @@ const SiteNavbar = (props: SiteNavbarProps) => {
   const { menuAlias, useCache } = props;
   const { setLoading, menuItems, setMenuItems } = useUi();
   const [isOpen, setIsOpen] = useState(false);
+  const routeParams = useParams<any>();
+  const locale = routeParams?.locale;
 
   const toggle = () => setIsOpen(!isOpen);
 
   const [linksPayload, { loading: linksLoading }] = useApi({
     url: '/links',
     params: {
+      locale,
       menuAlias,
     },
   }, { useCache });
