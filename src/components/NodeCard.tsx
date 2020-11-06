@@ -1,5 +1,7 @@
 import config from 'config';
+import I18n from 'I18n';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-i18n';
 import { Card, CardBody, CardFooter, CardImg } from 'reactstrap';
 import { LinkedAssets, Post } from 'types/entities';
@@ -18,7 +20,7 @@ declare interface NodeCardProps {
 export function getPoster(post: Post): string | undefined {
 
   const getAsset = (linkedAssets: LinkedAssets, name: string) => {
-    if (!Array.isArray(linkedAssets) && typeof linkedAssets[name][0] !== undefined) {
+    if (!Array.isArray(linkedAssets) && linkedAssets[name] && typeof linkedAssets[name][0] !== undefined) {
       const path = linkedAssets[name][0].path;
       return path.startsWith('/') ? config.site.baseUrl + path : path;
     }
@@ -43,6 +45,7 @@ export function getPoster(post: Post): string | undefined {
 
 const NodeCard = (props: NodeCardProps) => {
   const { node, isIndex } = props;
+  const { locale } = useParams<any>();
 
   const terms = node?.taxonomies?.filter(t => t.term)?.map(taxonomy => {
     const to = `/${node.nodeType.alias}/term/${taxonomy.term.slug}`;
@@ -54,6 +57,7 @@ const NodeCard = (props: NodeCardProps) => {
   })
 
   const poster = getPoster(node);
+  const dateFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
   return (
     <Card className='mb-5 no-hover'>
@@ -69,10 +73,10 @@ const NodeCard = (props: NodeCardProps) => {
 
         <h6 className="card-subtitle text-muted">
           {node.user
-            ? <><small>By: </small>{node.user.name} </>
+            ? <><small><I18n t='by' /></small>{node.user.name} </>
             : null
           }
-          <small>{new Date(node.publishStart).toDateString()}</small>
+          <small>{new Date(node.publishStart).toLocaleDateString(locale, dateFormatOptions)}</small>
         </h6>
 
         {
@@ -83,7 +87,7 @@ const NodeCard = (props: NodeCardProps) => {
 
         {terms && terms?.length > 0
           ? <>
-            <small>Posted in:</small>
+            <small><I18n t="postedIn" /></small>
             {terms?.map(term => term)}
           </>
           : null
@@ -92,7 +96,7 @@ const NodeCard = (props: NodeCardProps) => {
       </CardBody>
       { isIndex ?
         <CardFooter className='text-right'>
-          <Link className='btn btn-small btn-light' to={node.path} >read more</Link>
+          <Link className='btn btn-small btn-light' to={node.path} ><I18n t='readMore' /></Link>
         </CardFooter>
         : null
       }

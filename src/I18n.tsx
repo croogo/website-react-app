@@ -7,10 +7,16 @@ const locales = ['en', 'id'];
 // Dictionary of translations
 const translations = {
   en: {
+    by: 'By:',
     download: 'Download',
+    postedIn: 'Posted in:',
+    readMore: 'read more',
   },
   id: {
+    by: 'Oleh:',
     download: 'Unduh',
+    postedIn: 'Dipost di:',
+    readMore: 'baca',
   }
 }
 
