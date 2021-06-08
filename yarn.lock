@@ -7696,9 +7696,9 @@ meow@^3.7.0:
     trim-newlines "^1.0.0"
 
 merge-deep@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/merge-deep/-/merge-deep-3.0.2.tgz#f39fa100a4f1bd34ff29f7d2bf4508fbb8d83ad2"
-  integrity sha512-T7qC8kg4Zoti1cFd8Cr0M+qaZfOwjlPDEdZIIPPB2JZctjaPM4fX+i7HOId69tAti2fvO6X5ldfYUONDODsrkA==
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/merge-deep/-/merge-deep-3.0.3.tgz#1a2b2ae926da8b2ae93a0ac15d90cd1922766003"
+  integrity sha512-qtmzAS6t6grwEkNrunqTBdn0qKwFgNWvlxUbAV8es9M7Ot1EbyApytCnvE0jALPa46ZpKDUo527kKiaWplmlFA==
   dependencies:
     arr-union "^3.1.0"
     clone-deep "^0.2.4"
@@ -9944,10 +9944,10 @@ react-router-ga@^1.2.3:
   resolved "https://registry.yarnpkg.com/react-router-ga/-/react-router-ga-1.2.3.tgz#3011b63554e65f50dd16df3dbcdf4ed286b74e73"
   integrity sha512-0rNBGGI6Q1hkznbLB+bAmDTS+8w3duaJYYIbCrCwof/p7RbZuv+Lsv9enumRZXxb4oTZrY95vOvFxnsRQ4cFCg==
 
-react-router-i18n@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-router-i18n/-/react-router-i18n-1.0.1.tgz#3321c4553ff6340efbd4171c9c08cc6034197166"
-  integrity sha512-/aT4U/gwFHh9NU1PqbmLDEnDq98ShepugSOj8F9qc0nhtotUWJ0arNwOtKOiX8Gw7olZ3QzD3tu55qvd9O5pig==
+react-router-i18n@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-router-i18n/-/react-router-i18n-1.1.0.tgz#cb75e313f319350af5d55ca189014fd32cb4e78c"
+  integrity sha512-vBq9MXHerwd0QndCUGfaQ9qnDo50A3PuP4U2c1yqZx5dF/Cq4Bh3tjwQB+hFgztRi2X83QPnf3FNlQ09RBVUDA==
   dependencies:
     prop-types "^15.7.2"
 
