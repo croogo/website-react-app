@@ -25,7 +25,7 @@
     "html-react-parser": "^0.14.0",
     "jsona": "^1.8.0",
     "lru-cache": "^6.0.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "nprogress": "^0.2.0",
     "qs": "^6.9.4",
     "react": "^16.13.1",
